@@ -1,3 +1,229 @@
-# thesis
+# Knowledge Gap Detection — Dataset Pipeline
 
-This is the memory of my thesis
+This repository builds the training dataset for a classifier that
+distinguishes **true epistemic gaps** ("science doesn't know X yet, and X
+is a target for future research") from statements that merely *look* like
+gaps in scientific writing about pediatric epilepsy genetics.
+
+## 1. What counts as a knowledge gap
+
+Full rules are in `Annotation Guidelines.html` (not committed here); this
+is the working summary the pipeline and its labels are built against.
+
+**Epistemic Gap (label = 1)** — a missing/incomplete piece of knowledge
+that requires scientific investigation to resolve. Two forms:
+- *Gap-oriented*: states something is unknown/unclear/understudied.
+- *Goal-oriented*: forward-looking, names a concrete scientific target
+  ("further studies are needed to determine X").
+
+Everything else is **label = 0**, including three categories that are
+easy to mistake for gaps:
+
+1. **Forward-looking ≠ research goal.** "Future work" that's a practical,
+   clinical, or methodological fix (bigger sample, better imaging,
+   improved cell models) rather than new scientific knowledge is a
+   *Practical Recommendation*, not a gap.
+2. **Speculation alone isn't a gap.** Hedged language ("may", "suggests",
+   "possibly") is normal scientific writing. It only counts as a gap when
+   paired with an *explicit call for research* ("further investigation is
+   warranted", "should be tested by..."). A real example from the data
+   (article `10034091`) shows this rule in action: the same first
+   sentence is annotated negative alone (bare speculation) and becomes
+   positive once the next sentence's explicit call for research is
+   appended.
+3. **"Unknown"/"uncertain" as a classification label ≠ a gap.** ("epilepsy
+   of unknown etiology" used to bucket cases is not a research target.)
+
+There's also a **Non-Epistemic Gap** family — methodological, diagnostic,
+therapeutic, data-scarcity, and study-limitation statements — that
+defaults to negative and is only promoted to positive when explicitly
+framed as a future research target (vs. describing a present limitation).
+The `label` field on negative annotations in the source JSON
+(`Speculative statement`, `FP`, `Addressed GFK`, `NEG: Therapeutic gap`,
+`NEG: Diagnostic Gap`, `NEG: Methodological Gap`, `NEG: Data Scarcity`,
+`NEG: Study Limitation`, `Practical recommendation`) records which of
+these categories each negative example falls under; `Addressed GFK` marks
+a gap that *was* real but this study already resolved it.
+
+## 2. Source data audit
+
+`data/raw/ongoing_ignorannotations_balanced.json` — 100 articles (each
+abstract + introduction + discussion only, not the full text), manually
+annotated with positive and negative knowledge-gap statements.
+
+Findings from a full-file audit (not a sample):
+
+- 421 positive / 442 negative annotations, genuinely balanced.
+- All 863 annotations are exact, unique substring matches inside their
+  `source_section` text — 0 mismatches, 0 anchors appearing more than
+  once in a section. This is the foundation the whole offset-based
+  pipeline depends on.
+- Section keys are **not normalized**: Introduction/Discussion appear as
+  15 distinct strings across the corpus (`Introduction`, `1. Introduction`,
+  `INTRODUCTION`, `RESULTS AND DISCUSSION`, `4 Discussions`, etc.).
+  `source_section` on each annotation always matches the exact key used
+  for that article, so lookup is always by literal per-article key, never
+  a fixed assumed name.
+- Abstract present in all 100 articles; Introduction missing in 11,
+  Discussion missing in 9 (4 abstracts present-but-empty). These sections
+  simply contribute no anchors/windows for that article.
+- Only 1 case of a positive/negative annotation span overlap in the same
+  article+section — and it's the deliberate "speculation vs. speculation +
+  explicit call for research" example above, not a data error.
+
+## 3. Sentence segmentation
+
+Extracted section text has recurring artifacts that break plain sentence
+segmentation:
+
+1. **Missing boundaries**: `"...enhanced NaV1.1 activity.Here, we aim..."`
+   — no space after the period.
+2. **Structural headings glued to text**: `"AbstractObjectiveMonogenic
+   epilepsies..."`, and a CARE-case-report-style colon variant:
+   `"Rationale:CUL3 (OMIM: 603136) encodes..."`.
+3. **Biomedical notation that looks like a missing boundary but isn't**:
+   HGVS variant notation (`p.Asp920Glu`, `c.400G>A`) — same
+   `[letter].[Upper]` shape as (1), must not be split.
+4. **Embedded literal newlines** from citation-superscript extraction,
+   e.g. `"...PGM3,4\nCHD4,5\nUNC13B,6\n..."` — a plain sentence segmenter
+   (pysbd) treats these as paragraph breaks and shreds the sentence into
+   one-token fragments.
+
+Implementation (`src/pipeline/segmentation.py`), all offset-preserving —
+nothing is ever inserted or deleted, so sentence spans are always valid
+character offsets into the *original, untouched* section text:
+
+- **Heading stripping**: a curated list of structural/admin heading words
+  (`Background`, `Objective`, `Methods`, ..., `Rationale`, `Patient
+  concern`, `Diagnoses`, ..., `Ethical approval`, `Supplementary
+  Information`, ...) is matched only when *glued* — no separating
+  whitespace, signature of the extraction artifact — via a fixed-point
+  regex loop (needed because chained headings like `AbstractObjective`
+  can only reveal the second heading once the first is masked out for
+  re-scanning). Matched spans are excluded from the sentence list
+  entirely, never counted as content.
+- **HGVS/abbreviation protection**: reference-sequence prefixes `c. g. m.
+  n. p. r.` and common citation abbreviations (`et al.`, `Fig.`, `vs.`,
+  ...) are excluded from boundary repair.
+- **Boundary repair**: any other `[letter-or-digit].{Upper}` glue
+  (broadened from letters-only after finding real misses like
+  `"...of GABRA1.The two missense..."`, gene symbols ending in digits) is
+  treated as a mandatory cut point.
+- **Whitespace normalization for the underlying segmenter** (pysbd): every
+  whitespace character, including stray embedded newlines, is replaced
+  1-for-1 with a plain space in a length-preserving copy before running
+  pysbd, so those newlines stop being read as paragraph breaks. Only this
+  copy is used to get pysbd's boundary offsets; nothing downstream ever
+  reads from it.
+- Final sentence spans = the union of pysbd's boundaries, the repair cut
+  points, and the heading-span boundaries, split into segments, trimmed,
+  with pure-heading and pure-punctuation fragments dropped.
+
+**Verified on the full corpus**: 0 residual heading leftovers, 0 residual
+unprotected glued boundaries (the only `[letter].{Upper}` pattern left
+in any output sentence is the intentionally-protected `p.` HGVS prefix,
+291 occurrences, all genuine variant notation).
+
+**Known remaining gap** (documented, not fixed): a sentence-ending period
+immediately followed by a citation number then a space then a capitalized
+word (e.g. `"...and SYNGAP1.9 However, the causative genes..."`) is not
+split, because the `.9` reads exactly like a decimal number to any rule
+that doesn't also risk breaking real decimals. This under-splits rather
+than corrupts — worth revisiting if it turns out to affect anchor
+snapping, but it did not in this corpus (0/863 anchors affected).
+
+## 4. Anchor snapping
+
+`src/pipeline/anchors.py`: for each annotation, the exact statement
+(already known to be a unique substring — see the audit) is located via
+`str.find`, then snapped to the smallest contiguous run of segmented
+sentences that fully overlaps it. Verified on all 863 annotations: 0
+not-found, 0 ambiguous, 0 with no overlapping sentence.
+
+## 5. Window generation
+
+`src/pipeline/windows.py`. Two different sizing rules:
+
+- **Anchor-centered windows** (used for both positive anchors and
+  standalone negative anchors): size = `len(anchor_sentences) + 2`, with
+  the extra 2 sentences distributed 3 ways — `2-before`, `1-before +
+  1-after`, `2-after` — clipped (not skipped) at section boundaries. A
+  2-sentence anchor yields 4-sentence windows; a 5-sentence anchor yields
+  7-sentence windows.
+- **Nearby-negative blocks** (flanking a positive anchor): a *fixed* 3
+  sentences immediately before, and a fixed 3 immediately after,
+  independent of the anchor's own length. A side is generated with fewer
+  than 3 sentences if that's all that's available, and skipped entirely
+  only if zero sentences are available on that side.
+
+So each positive anchor yields 3 positive windows + up to 2 nearby-negative
+candidate windows; each negative anchor yields 3 candidate negative
+windows.
+
+**Resolution pass** (applied to every negative-labeled candidate,
+regardless of which mechanism produced it, checked against every positive
+anchor in the same section):
+- Fully contains a positive anchor → promoted to label 1 (positive wins,
+  even if the same window also partially brushes a *different* anchor).
+- Partially overlaps a positive anchor without fully containing any →
+  discarded (ambiguous, not confidently either label).
+- No overlap → stays a negative example.
+
+**Window text** = the original sentence substrings (verbatim, untouched)
+joined with a single space — not a raw contiguous slice of the original
+text, so that any structural heading spans skipped over between two
+selected sentences don't leak back into the training text.
+
+**Deduplication**: identical window text collapses to one example; if the
+same text appears with both labels, the positive copy wins.
+
+## 6. Train/eval split
+
+`src/pipeline/split.py`: articles are split 80/20 (seed 42) *before*
+augmentation, so no paper's sentences appear in both sets.
+
+## 7. Running it
+
+```
+pip install -r requirements.txt
+python build_dataset.py
+```
+
+Outputs `data/processed/train.jsonl` and `data/processed/eval.jsonl`, one
+JSON object per line:
+
+```json
+{
+  "article_id": "10018541",
+  "section": "Discussion",
+  "text": "...",
+  "label": 1,
+  "source": "positive_anchor",
+  "variant": "1before_1after",
+  "promoted": false,
+  "anchor_text": "...",
+  "n_sentences": 3
+}
+```
+
+`source` is one of `positive_anchor` / `negative_anchor` /
+`nearby_negative`; `promoted` marks windows that flipped from candidate
+negative to positive via the positive-wins rule.
+
+## 8. Current dataset (seed 42, 80/20 split)
+
+- 100 articles → 80 train / 20 eval.
+- 3381 candidate windows generated → 28 discarded (partial anchor
+  overlap) → 435 promoted to positive (positive-wins) → 802 collapsed as
+  exact-text duplicates → **2551 final windows**.
+- Train: 1876 windows (875 positive / 1001 negative).
+- Eval: 675 windows (307 positive / 368 negative).
+- Window length: min 8 words, median 72, p95 122, max 254 — the long tail
+  is worth accounting for in max-sequence-length choice once we pick a
+  tokenizer/model, since a 254-word biomedical window will run well past
+  a typical 512-subword-token BERT budget once split.
+
+## Next steps
+
+Model training (tokenizer/model choice, max-length/truncation strategy)
+is not yet designed — to be added once this dataset is validated.
