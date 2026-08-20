@@ -7,10 +7,11 @@ Usage:
         --input data/raw/ongoing_ignorannotations_balanced.json \
         --outdir data/processed
 
-Produces data/processed/train.jsonl, data/processed/eval.jsonl, and prints
-a summary of counts and class balance.
+Produces data/processed/{train,eval}.{jsonl,csv} and prints a summary of
+counts and class balance.
 """
 import argparse
+import csv
 import json
 import os
 import sys
@@ -142,8 +143,22 @@ def main():
             for w in windows:
                 f.write(json.dumps(w, ensure_ascii=False) + "\n")
 
+    fieldnames = [
+        "article_id", "section", "text", "label", "source", "variant",
+        "promoted", "anchor_text", "n_sentences",
+    ]
+
+    def write_csv(path, windows):
+        with open(path, "w", encoding="utf-8", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames, quoting=csv.QUOTE_MINIMAL)
+            writer.writeheader()
+            for w in windows:
+                writer.writerow(w)
+
     write_jsonl(os.path.join(args.outdir, "train.jsonl"), train_windows)
     write_jsonl(os.path.join(args.outdir, "eval.jsonl"), eval_windows)
+    write_csv(os.path.join(args.outdir, "train.csv"), train_windows)
+    write_csv(os.path.join(args.outdir, "eval.csv"), eval_windows)
 
     def summarize(name, windows):
         n_pos = sum(1 for w in windows if w["label"] == 1)
