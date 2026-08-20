@@ -1,1 +1,4 @@
 pysbd==0.3.4
+pandas>=1.5
+matplotlib>=3.5
+jupyter>=1.0
