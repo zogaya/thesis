@@ -333,16 +333,56 @@ has no saved GitHub credentials, so this avoids setting up token auth
 inside a notebook.
 
 **Verification status**: unlike the dataset-build pipeline, this script
-could not be executed end-to-end in the environment it was written in —
-`huggingface.co` is network-blocked there, so the actual model
-download/train/eval loop is unverified. Everything that *doesn't* require
-downloading a model was tested directly: CSV loading against the real
-`train.csv`/`eval.csv`, `compute_metrics` against realistic fake
+has not been executed end-to-end yet. Everything that *doesn't* require
+downloading a model was tested directly and passed: CSV loading against
+the real `train.csv`/`eval.csv`, `compute_metrics` against realistic fake
 logits/labels, `WindowDataset` indexing, `plot_confusion_matrix` output,
 CLI argument parsing, and `TrainingArguments` construction with the exact
-parameters the script uses. The Hugging Face `from_pretrained(...)` /
-`Trainer.train()` / `.evaluate()` / `.predict()` calls themselves have not
-been run — that verification happens on first real run, in Colab.
+parameters the script uses.
+
+The actual `from_pretrained(...)` / `Trainer.train()` / `.evaluate()` /
+`.predict()` calls were partially checked in the environment this was
+written in, which has a restrictive network egress policy: the
+`bert-base-cased` **tokenizer** downloaded and ran correctly (confirmed
+real, correct subword output on a real biomedical sentence), but the
+**model weights** (~430MB) failed — not a code bug, but that
+environment's proxy returning 403 on the large-file transfer, whether via
+Hugging Face's "Xet" storage backend (`*.hf.co`) or the classic CDN
+fallback (`*.huggingface.co`, as a wildcard — a bare `huggingface.co`
+entry doesn't cover the CDN subdomains large files are actually served
+from). Both domains have since been added to that environment's network
+allowlist, but the change only applies to *new* sessions, not the one
+that discovered the issue.
+
+## Handoff to a new session
+
+This environment's network policy was just updated (`huggingface.co`,
+`*.huggingface.co`, `*.hf.co` added to the allowlist) specifically so
+`train_model.py` could be run and verified for real. Whoever picks this
+up next (a fresh session was required for the policy change to take
+effect) should:
+
+1. Confirm access actually works now: try downloading `bert-base-cased`
+   (tokenizer *and* model weights, not just the tokenizer) before
+   assuming anything about the code.
+2. If that succeeds, run `train_model.py` for all three models directly
+   in that environment (`--model bert`, `--model biobert`,
+   `--model pubmedbert`) and treat this as the first real end-to-end
+   verification the script has had — read through the output for
+   correctness the way the dataset pipeline was verified earlier in this
+   project (sanity-check the metrics look plausible, the confusion matrix
+   makes sense, nothing silently failed), not just "did it run without
+   crashing."
+3. If large-file access still doesn't work even after the policy update
+   (e.g. a subdomain wasn't covered, or the CDN host differs from what
+   was seen before), report exactly what failed rather than guessing at
+   another workaround — the dataset-build phase of this project ran into
+   several environment-specific quirks like this, and each one got
+   diagnosed precisely rather than worked around blindly.
+4. Once real results exist for all three models, update this README's
+   "Verification status" above to reflect what actually happened
+   (replacing this handoff section), commit `results/<model>/` for each
+   model, and continue with the comparison step below.
 
 ## Next steps
 
