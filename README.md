@@ -88,6 +88,15 @@ segmentation:
    e.g. `"...PGM3,4\nCHD4,5\nUNC13B,6\n..."` — a plain sentence segmenter
    (pysbd) treats these as paragraph breaks and shreds the sentence into
    one-token fragments.
+5. **Stray multi-number citation markers** left dangling between two real
+   sentences, e.g. `"...NaV1.1 activity.20\n, \n21\n It is hypothesized..."`
+   (originally inline superscript `"activity.20,21"` citing references 20
+   and 21). Found via manual spot-checking of `train.csv` — neither pysbd
+   nor the boundary-repair rule creates a cut point here (pysbd doesn't
+   split before a digit, to avoid breaking decimals/numbered lists; the
+   digit isn't uppercase so the repair rule doesn't fire either), so the
+   marker gets glued onto the front of the following sentence instead of
+   being removed.
 
 Implementation (`src/pipeline/segmentation.py`), all offset-preserving —
 nothing is ever inserted or deleted, so sentence spans are always valid
@@ -115,22 +124,37 @@ character offsets into the *original, untouched* section text:
   pysbd, so those newlines stop being read as paragraph breaks. Only this
   copy is used to get pysbd's boundary offsets; nothing downstream ever
   reads from it.
+- **Citation-marker stripping**: a span matching two or more short
+  (1-3 digit) comma/newline-separated number groups, immediately after
+  sentence-ending punctuation and immediately before the next sentence's
+  capital letter, is treated the same way as a heading span — cut points
+  at both ends, excluded from sentence content. Deliberately requires
+  **2 or more** number groups: a single bare number in this position is
+  left alone, since gene/variant identifiers routinely end in one digit
+  followed by a comma (`"PCDH19,"`, `"Cys182,"`, `"RBFOX1,"`) and there's
+  no safe way to tell those apart from a lone citation number without
+  risking real content.
 - Final sentence spans = the union of pysbd's boundaries, the repair cut
-  points, and the heading-span boundaries, split into segments, trimmed,
-  with pure-heading and pure-punctuation fragments dropped.
+  points, the heading-span boundaries, and the citation-marker-span
+  boundaries, split into segments, trimmed, with pure-heading and
+  pure-punctuation fragments dropped.
 
 **Verified on the full corpus**: 0 residual heading leftovers, 0 residual
 unprotected glued boundaries (the only `[letter].{Upper}` pattern left
 in any output sentence is the intentionally-protected `p.` HGVS prefix,
-291 occurrences, all genuine variant notation).
+291 occurrences, all genuine variant notation), 0 residual multi-number
+citation-marker fragments surviving as their own sentence (down from 303
+in the raw corpus).
 
 **Known remaining gap** (documented, not fixed): a sentence-ending period
-immediately followed by a citation number then a space then a capitalized
-word (e.g. `"...and SYNGAP1.9 However, the causative genes..."`) is not
-split, because the `.9` reads exactly like a decimal number to any rule
-that doesn't also risk breaking real decimals. This under-splits rather
-than corrupts — worth revisiting if it turns out to affect anchor
-snapping, but it did not in this corpus (0/863 anchors affected).
+immediately followed by a *single* citation number then a space then a
+capitalized word (e.g. `"...and SYNGAP1.9 However, the causative
+genes..."`) is not split, because a lone digit in that position is
+indistinguishable from a decimal number or a gene/variant identifier
+without risking real content — same reasoning as why citation-marker
+stripping requires 2+ number groups. This under-splits rather than
+corrupts — worth revisiting if it turns out to affect anchor snapping,
+but it did not in this corpus (0/863 anchors affected).
 
 ## 4. Anchor snapping
 
@@ -214,11 +238,11 @@ negative to positive via the positive-wins rule.
 
 - 100 articles → 80 train / 20 eval.
 - 3381 candidate windows generated → 28 discarded (partial anchor
-  overlap) → 435 promoted to positive (positive-wins) → 802 collapsed as
-  exact-text duplicates → **2551 final windows**.
-- Train: 1876 windows (875 positive / 1001 negative).
-- Eval: 675 windows (307 positive / 368 negative).
-- Window length: min 8 words, median 72, p95 122, max 254 — the long tail
+  overlap) → 426 promoted to positive (positive-wins) → 794 collapsed as
+  exact-text duplicates → **2559 final windows**.
+- Train: 1877 windows (876 positive / 1001 negative).
+- Eval: 682 windows (309 positive / 373 negative).
+- Window length: min 8 words, median 71, p95 119, max 254 — the long tail
   is worth accounting for in max-sequence-length choice once we pick a
   tokenizer/model, since a 254-word biomedical window will run well past
   a typical 512-subword-token BERT budget once split.

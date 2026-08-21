@@ -70,6 +70,20 @@ _ABBREV_RE = re.compile(
 # uppercase letter, no space.
 _MISSING_BOUNDARY_RE = re.compile(r"[A-Za-z0-9]\.(?=[A-Z])")
 
+# Stray citation-superscript reference numbers left behind by extraction,
+# e.g. "...enhanced NaV1.1 activity.20\n, \n21\n It is hypothesized..."
+# (originally inline superscript "activity.20,21" citing references 20 and
+# 21). Requires TWO OR MORE short comma/newline-separated digit groups
+# immediately after sentence-ending punctuation and immediately before the
+# next sentence's capital letter -- a shape real prose doesn't produce, so
+# it's safe to treat as noise. A single bare number in this position is
+# deliberately NOT matched: with only one digit group there's no way to
+# distinguish a citation marker from a real gene/variant identifier
+# (e.g. "PCDH19,", "Cys182,") without risking removing real content.
+_CITATION_MARKER_RE = re.compile(
+    r"(?<=[.!?])\s*\d{1,3}\s*(?:[,\n]\s*\d{1,3}\s*){1,5}(?=[A-Z])"
+)
+
 _segmenter = pysbd.Segmenter(language="en", clean=False, char_span=True)
 
 
@@ -125,6 +139,18 @@ def find_missing_boundary_cuts(text):
     return cuts
 
 
+def find_citation_marker_spans(text):
+    """Return (start, end) spans of stray multi-number citation markers
+    (see _CITATION_MARKER_RE). These sit between two real sentences but
+    neither pysbd nor find_missing_boundary_cuts creates a cut point next
+    to them -- pysbd doesn't split before a digit (avoids breaking
+    decimals/numbered lists), and the digit isn't uppercase so the missing-
+    boundary repair doesn't fire either. Adding cut points at both ends is
+    enough: once isolated, the marker fragment is pure digits/punctuation
+    and segment_sentences' existing "no alphabetic content" filter drops it."""
+    return [(m.start(), m.end()) for m in _CITATION_MARKER_RE.finditer(text)]
+
+
 _WHITESPACE_RE = re.compile(r"\s")
 
 
@@ -144,6 +170,7 @@ def segment_sentences(text):
         return []
 
     heading_spans = find_glued_heading_spans(text)
+    citation_marker_spans = find_citation_marker_spans(text)
     repair_cuts = find_missing_boundary_cuts(text)
     baseline_cuts = {
         span.end for span in _segmenter.segment(_normalize_whitespace_same_length(text))
@@ -151,6 +178,9 @@ def segment_sentences(text):
 
     cut_points = {0, len(text)}
     for start, end in heading_spans:
+        cut_points.add(start)
+        cut_points.add(end)
+    for start, end in citation_marker_spans:
         cut_points.add(start)
         cut_points.add(end)
     cut_points |= repair_cuts
