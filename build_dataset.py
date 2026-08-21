@@ -25,7 +25,7 @@ from pipeline.anchors import (
     locate_anchor,
     snap_to_sentence_indices,
 )
-from pipeline.segmentation import segment_sentences
+from pipeline.segmentation import segment_sentences, strip_midsentence_citation_markers
 from pipeline.split import split_article_ids
 from pipeline.windows import dedup_windows, generate_section_windows
 
@@ -73,6 +73,7 @@ def build_windows_for_section(article_id, section_name, section_text, positives,
             section_text[sentence_spans[i][0]:sentence_spans[i][1]]
             for i in range(start_idx, end_idx + 1)
         )
+        text = strip_midsentence_citation_markers(text)
         windows.append({
             "article_id": article_id,
             "section": section_name,

@@ -208,37 +208,13 @@ article_id,section,text,label,source,variant,promoted,anchor_text,n_sentences
 10092251,INTRODUCTION,They are neglected diseases; their rarity makes traditional drug development methods uneconomical. Drug repurposing—finding treatments for a disease from among existing compounds already being used to treat other diseases—makes drug discovery for rare diseases viable. Drug repurposing for a disease can be accelerated by computationally predicting the drugs that are most likely to be efficacious for the disease.,0,negative_anchor,2before_0after,False,Drug repurposing for a disease can be accelerated by computationally predicting the drugs that are most likely to be efficacious for the disease.,3
 10092251,INTRODUCTION,"Drug repurposing—finding treatments for a disease from among existing compounds already being used to treat other diseases—makes drug discovery for rare diseases viable. Drug repurposing for a disease can be accelerated by computationally predicting the drugs that are most likely to be efficacious for the disease. Computational methods developed to predict drugs for polygenic diseases are unsuitable for monogenic diseases in general
 2
-, 
-3
-, 
-4
-, 
-5
-, 
-6
- and monogenic epilepsies in particular.",0,negative_anchor,1before_1after,False,Drug repurposing for a disease can be accelerated by computationally predicting the drugs that are most likely to be efficacious for the disease.,3
+, and monogenic epilepsies in particular.",0,negative_anchor,1before_1after,False,Drug repurposing for a disease can be accelerated by computationally predicting the drugs that are most likely to be efficacious for the disease.,3
 10092251,INTRODUCTION,"Drug repurposing for a disease can be accelerated by computationally predicting the drugs that are most likely to be efficacious for the disease. Computational methods developed to predict drugs for polygenic diseases are unsuitable for monogenic diseases in general
 2
-, 
-3
-, 
-4
-, 
-5
-, 
-6
- and monogenic epilepsies in particular. One strategy used to predict drugs for a polygenic disease is to identify the drugs that affect the function of genes underlying the disease.",0,negative_anchor,0before_2after,False,Drug repurposing for a disease can be accelerated by computationally predicting the drugs that are most likely to be efficacious for the disease.,3
+, and monogenic epilepsies in particular. One strategy used to predict drugs for a polygenic disease is to identify the drugs that affect the function of genes underlying the disease.",0,negative_anchor,0before_2after,False,Drug repurposing for a disease can be accelerated by computationally predicting the drugs that are most likely to be efficacious for the disease.,3
 10092251,INTRODUCTION,"Computational methods developed to predict drugs for polygenic diseases are unsuitable for monogenic diseases in general
 2
-, 
-3
-, 
-4
-, 
-5
-, 
-6
- and monogenic epilepsies in particular. One strategy used to predict drugs for a polygenic disease is to identify the drugs that affect the function of genes underlying the disease. A monogenic disease is caused by a mutation in a single gene.",0,negative_anchor,0before_2after,False,"Computational methods developed to predict drugs for polygenic diseases are unsuitable for monogenic diseases in general
+, and monogenic epilepsies in particular. One strategy used to predict drugs for a polygenic disease is to identify the drugs that affect the function of genes underlying the disease. A monogenic disease is caused by a mutation in a single gene.",0,negative_anchor,0before_2after,False,"Computational methods developed to predict drugs for polygenic diseases are unsuitable for monogenic diseases in general
 2
 , 
 3
@@ -615,15 +591,7 @@ article_id,section,text,label,source,variant,promoted,anchor_text,n_sentences
 10235569,INTRODUCTION,"An early genetic diagnosis of PRRT2‐positive SeLIE can partly predict the clinical course from the onset, including the response to anti‐seizure medications. Recent studies reporting the effectiveness of sodium channel blockers (SCB) in patients with SeLIE are illustrative examples. However, since it usually takes months to obtain genetic testing results, this has also limited clinical utility when deciding on anti‐seizure medications at the time of seizure onset.",0,nearby_negative,before_block,False,"Thus, the electroclinical features at seizure onset in patients with PRRT2‐positive SeLIE need to be specifically investigated.",3
 10235569,INTRODUCTION,"Based on these considerations, we reviewed the clinical characteristics and course of patients diagnosed with SeLIE confirmed to have pathogenic variants of the PRRT2 gene. The patient's group also included some patients with neonatal‐onset seizures and those with unremitting seizures, even after 3 years of age, to investigate the extended spectrum of PRRT2‐related epilepsy. Our study findings can aid in identifying patients with PRRT2‐related epilepsy at an early stage of the disease and suggest a suitable first‐line anti‐seizure medication.",0,nearby_negative,after_block,False,"Thus, the electroclinical features at seizure onset in patients with PRRT2‐positive SeLIE need to be specifically investigated.",3
 10235569,INTRODUCTION,"The patient's group also included some patients with neonatal‐onset seizures and those with unremitting seizures, even after 3 years of age, to investigate the extended spectrum of PRRT2‐related epilepsy. Our study findings can aid in identifying patients with PRRT2‐related epilepsy at an early stage of the disease and suggest a suitable first‐line anti‐seizure medication.",0,negative_anchor,0before_2after,False,"The patient's group also included some patients with neonatal‐onset seizures and those with unremitting seizures, even after 3 years of age, to investigate the extended spectrum of PRRT2‐related epilepsy.",2
-10235569,DISCUSSION,"There are various genetic causes of SeLIE, and the primary causal gene is known to be PRRT2, accounting for two‐thirds of cases. The remaining 30% includes the SCN8A, KCNQ2, SCN2A, and KCNQ3 genes. However, these genes are known to be different in the peak onset of seizures from PRRT2‐related epilepsy,
-11
-, 
-12
-, 
-13
-, 
-14
- and little is known about the electroclinical features when the seizure onset of patients with pathogenic variants in these genes overlaps with SeLIE.",1,positive_anchor,2before_0after,False,"However, these genes are known to be different in the peak onset of seizures from PRRT2‐related epilepsy,
+10235569,DISCUSSION,"There are various genetic causes of SeLIE, and the primary causal gene is known to be PRRT2, accounting for two‐thirds of cases. The remaining 30% includes the SCN8A, KCNQ2, SCN2A, and KCNQ3 genes. However, these genes are known to be different in the peak onset of seizures from PRRT2‐related epilepsy, and little is known about the electroclinical features when the seizure onset of patients with pathogenic variants in these genes overlaps with SeLIE.",1,positive_anchor,2before_0after,False,"However, these genes are known to be different in the peak onset of seizures from PRRT2‐related epilepsy,
 11
 , 
 12
@@ -632,15 +600,7 @@ article_id,section,text,label,source,variant,promoted,anchor_text,n_sentences
 , 
 14
  and little is known about the electroclinical features when the seizure onset of patients with pathogenic variants in these genes overlaps with SeLIE.",3
-10235569,DISCUSSION,"The remaining 30% includes the SCN8A, KCNQ2, SCN2A, and KCNQ3 genes. However, these genes are known to be different in the peak onset of seizures from PRRT2‐related epilepsy,
-11
-, 
-12
-, 
-13
-, 
-14
- and little is known about the electroclinical features when the seizure onset of patients with pathogenic variants in these genes overlaps with SeLIE. SCN1A is linked with Dravet syndrome and is one of the genes whose seizure onset age overlaps with PRRT2.",1,positive_anchor,1before_1after,False,"However, these genes are known to be different in the peak onset of seizures from PRRT2‐related epilepsy,
+10235569,DISCUSSION,"The remaining 30% includes the SCN8A, KCNQ2, SCN2A, and KCNQ3 genes. However, these genes are known to be different in the peak onset of seizures from PRRT2‐related epilepsy, and little is known about the electroclinical features when the seizure onset of patients with pathogenic variants in these genes overlaps with SeLIE. SCN1A is linked with Dravet syndrome and is one of the genes whose seizure onset age overlaps with PRRT2.",1,positive_anchor,1before_1after,False,"However, these genes are known to be different in the peak onset of seizures from PRRT2‐related epilepsy,
 11
 , 
 12
@@ -649,15 +609,7 @@ article_id,section,text,label,source,variant,promoted,anchor_text,n_sentences
 , 
 14
  and little is known about the electroclinical features when the seizure onset of patients with pathogenic variants in these genes overlaps with SeLIE.",3
-10235569,DISCUSSION,"However, these genes are known to be different in the peak onset of seizures from PRRT2‐related epilepsy,
-11
-, 
-12
-, 
-13
-, 
-14
- and little is known about the electroclinical features when the seizure onset of patients with pathogenic variants in these genes overlaps with SeLIE. SCN1A is linked with Dravet syndrome and is one of the genes whose seizure onset age overlaps with PRRT2. The seizures during infancy in Dravet syndrome have been well characterized as prolonged hemiclonic seizures in a febrile context.",1,positive_anchor,0before_2after,False,"However, these genes are known to be different in the peak onset of seizures from PRRT2‐related epilepsy,
+10235569,DISCUSSION,"However, these genes are known to be different in the peak onset of seizures from PRRT2‐related epilepsy, and little is known about the electroclinical features when the seizure onset of patients with pathogenic variants in these genes overlaps with SeLIE. SCN1A is linked with Dravet syndrome and is one of the genes whose seizure onset age overlaps with PRRT2. The seizures during infancy in Dravet syndrome have been well characterized as prolonged hemiclonic seizures in a febrile context.",1,positive_anchor,0before_2after,False,"However, these genes are known to be different in the peak onset of seizures from PRRT2‐related epilepsy,
 11
 , 
 12
@@ -686,17 +638,9 @@ article_id,section,text,label,source,variant,promoted,anchor_text,n_sentences
  and little is known about the electroclinical features when the seizure onset of patients with pathogenic variants in these genes overlaps with SeLIE.",3
 10235569,DISCUSSION,"Our previous study on SCN1A‐positive Dravet syndrome patients also revealed that the seizure was prolonged (>15 minutes) in 29% of patients and was associated with fever in 51% of the total patients at onset. Since developmental problems might not be evident at onset, some clinical features at onset could overlap between PRRT2‐positive SeLIE and SCN1A‐positive Dravet syndrome. Thus, the differentiating features of PRRT2‐positive SeLIE patients at onset need to be characterized more specifically.",1,positive_anchor,2before_0after,False,"Thus, the differentiating features of PRRT2‐positive SeLIE patients at onset need to be characterized more specifically.",3
 10235569,DISCUSSION,"Since developmental problems might not be evident at onset, some clinical features at onset could overlap between PRRT2‐positive SeLIE and SCN1A‐positive Dravet syndrome. Thus, the differentiating features of PRRT2‐positive SeLIE patients at onset need to be characterized more specifically. In the present study, the semiology of the initial seizure was classified as bilateral tonic–clonic in over two‐thirds (72.2%) of the patients, and initial seizures were clustered in 63.9% of the patients.",1,positive_anchor,1before_1after,False,"Thus, the differentiating features of PRRT2‐positive SeLIE patients at onset need to be characterized more specifically.",3
-10235569,DISCUSSION,"Thus, the differentiating features of PRRT2‐positive SeLIE patients at onset need to be characterized more specifically. In the present study, the semiology of the initial seizure was classified as bilateral tonic–clonic in over two‐thirds (72.2%) of the patients, and initial seizures were clustered in 63.9% of the patients. Although all these features were described in earlier clinical studies,
-18
-, 
-19
- they seemed more accentuated when SeLIE patients were restricted to PRRT2‐positive patients.",1,positive_anchor,0before_2after,False,"Thus, the differentiating features of PRRT2‐positive SeLIE patients at onset need to be characterized more specifically.",3
+10235569,DISCUSSION,"Thus, the differentiating features of PRRT2‐positive SeLIE patients at onset need to be characterized more specifically. In the present study, the semiology of the initial seizure was classified as bilateral tonic–clonic in over two‐thirds (72.2%) of the patients, and initial seizures were clustered in 63.9% of the patients. Although all these features were described in earlier clinical studies, they seemed more accentuated when SeLIE patients were restricted to PRRT2‐positive patients.",1,positive_anchor,0before_2after,False,"Thus, the differentiating features of PRRT2‐positive SeLIE patients at onset need to be characterized more specifically.",3
 10235569,DISCUSSION,"However, in approximately one‐third of patients with Dravet syndrome, initial seizures may not be prolonged or occur in an afebrile context. Our previous study on SCN1A‐positive Dravet syndrome patients also revealed that the seizure was prolonged (>15 minutes) in 29% of patients and was associated with fever in 51% of the total patients at onset. Since developmental problems might not be evident at onset, some clinical features at onset could overlap between PRRT2‐positive SeLIE and SCN1A‐positive Dravet syndrome.",0,nearby_negative,before_block,False,"Thus, the differentiating features of PRRT2‐positive SeLIE patients at onset need to be characterized more specifically.",3
-10235569,DISCUSSION,"In the present study, the semiology of the initial seizure was classified as bilateral tonic–clonic in over two‐thirds (72.2%) of the patients, and initial seizures were clustered in 63.9% of the patients. Although all these features were described in earlier clinical studies,
-18
-, 
-19
- they seemed more accentuated when SeLIE patients were restricted to PRRT2‐positive patients. In particular, the high frequency of short bilateral tonic–clonic seizures in PRRT2‐positive patients could be in sharp contrast to the prolonged hemiclonic seizures in SCN1A‐positive patients.",0,nearby_negative,after_block,False,"Thus, the differentiating features of PRRT2‐positive SeLIE patients at onset need to be characterized more specifically.",3
+10235569,DISCUSSION,"In the present study, the semiology of the initial seizure was classified as bilateral tonic–clonic in over two‐thirds (72.2%) of the patients, and initial seizures were clustered in 63.9% of the patients. Although all these features were described in earlier clinical studies, they seemed more accentuated when SeLIE patients were restricted to PRRT2‐positive patients. In particular, the high frequency of short bilateral tonic–clonic seizures in PRRT2‐positive patients could be in sharp contrast to the prolonged hemiclonic seizures in SCN1A‐positive patients.",0,nearby_negative,after_block,False,"Thus, the differentiating features of PRRT2‐positive SeLIE patients at onset need to be characterized more specifically.",3
 10235569,DISCUSSION,"We also identified atypical cases of PRRT2‐positive SeLIE from those previously known to have neonatal onset or to be unremitting. These findings may expand our understanding of the phenotype and genotype of PRRT2‐related epilepsy and enable early patient recognition. Furthermore, we suggest the administration of SCB for patients with a distinct phenotype of PRRT2‐related epilepsy at the initial presentation.",0,negative_anchor,2before_0after,False,"Furthermore, we suggest the administration of SCB for patients with a distinct phenotype of PRRT2‐related epilepsy at the initial presentation.",3
 10235569,DISCUSSION,"These findings may expand our understanding of the phenotype and genotype of PRRT2‐related epilepsy and enable early patient recognition. Furthermore, we suggest the administration of SCB for patients with a distinct phenotype of PRRT2‐related epilepsy at the initial presentation.",0,negative_anchor,1before_1after,False,"Furthermore, we suggest the administration of SCB for patients with a distinct phenotype of PRRT2‐related epilepsy at the initial presentation.",2
 10235569,DISCUSSION,"Furthermore, we suggest the administration of SCB for patients with a distinct phenotype of PRRT2‐related epilepsy at the initial presentation.",0,negative_anchor,0before_2after,False,"Furthermore, we suggest the administration of SCB for patients with a distinct phenotype of PRRT2‐related epilepsy at the initial presentation.",1
@@ -793,29 +737,17 @@ HCFC1 is potentially a candidate gene for common partial epilepsy with distinct 
 10270265,Introduction,"As SLC1A4 forms a homomeric protein complex essential for shuttling L‐serine from astrocytes into neurons, we sought to evaluate whether this variant protein is exerting a dominant‐negative effect on the remaining wild‐type SLC1A4 protein. Dominant‐negative variants have been well characterized in similar transporters,
 9
  and are characterized by their ability to co‐assemble with and subsequently interfere with the function of wild‐type protein via reduced overall plasma membrane expression or altered transport function.",0,negative_anchor,0before_2after,False,"As SLC1A4 forms a homomeric protein complex essential for shuttling L‐serine from astrocytes into neurons, we sought to evaluate whether this variant protein is exerting a dominant‐negative effect on the remaining wild‐type SLC1A4 protein.",2
-10270265,Discussion,"Unlike SLC1A4 variants associated with autosomal recessive SPATCCM syndrome, the SLC1A4 Leu86_Met88dup variant has a dominant‐negative impact on SLC1A4, as is evidenced by its ability to interfere with the function of remaining wild‐type SLC1A4 protein. Specifically, SLC1A4L86_M88dup results in an N‐glycosylation and membrane trafficking defect that reduces the overall membrane localization of wild‐type SLC1A4 and the transport rate of SLC1A4 for L‐serine. N‐glycosylation has been linked to trafficking of numerous transporters,
-14
-, 
-15
- and the dominant‐negative impact of SLC1A4L86_M88dup on N‐glycosylation indicates that N‐glycosylation likely occurs mainly after the formation of trimeric protein and is necessary for normal SLC1A4 trafficking and function.",0,negative_anchor,2before_0after,False,"N‐glycosylation has been linked to trafficking of numerous transporters,
+10270265,Discussion,"Unlike SLC1A4 variants associated with autosomal recessive SPATCCM syndrome, the SLC1A4 Leu86_Met88dup variant has a dominant‐negative impact on SLC1A4, as is evidenced by its ability to interfere with the function of remaining wild‐type SLC1A4 protein. Specifically, SLC1A4L86_M88dup results in an N‐glycosylation and membrane trafficking defect that reduces the overall membrane localization of wild‐type SLC1A4 and the transport rate of SLC1A4 for L‐serine. N‐glycosylation has been linked to trafficking of numerous transporters, and the dominant‐negative impact of SLC1A4L86_M88dup on N‐glycosylation indicates that N‐glycosylation likely occurs mainly after the formation of trimeric protein and is necessary for normal SLC1A4 trafficking and function.",0,negative_anchor,2before_0after,False,"N‐glycosylation has been linked to trafficking of numerous transporters,
 14
 , 
 15
  and the dominant‐negative impact of SLC1A4L86_M88dup on N‐glycosylation indicates that N‐glycosylation likely occurs mainly after the formation of trimeric protein and is necessary for normal SLC1A4 trafficking and function.",3
-10270265,Discussion,"Specifically, SLC1A4L86_M88dup results in an N‐glycosylation and membrane trafficking defect that reduces the overall membrane localization of wild‐type SLC1A4 and the transport rate of SLC1A4 for L‐serine. N‐glycosylation has been linked to trafficking of numerous transporters,
-14
-, 
-15
- and the dominant‐negative impact of SLC1A4L86_M88dup on N‐glycosylation indicates that N‐glycosylation likely occurs mainly after the formation of trimeric protein and is necessary for normal SLC1A4 trafficking and function. Overall, these findings provide basic insights into SLC1A4 trafficking and function and expand the spectrum of SLC1A4‐related disorders.",0,negative_anchor,1before_1after,False,"N‐glycosylation has been linked to trafficking of numerous transporters,
+10270265,Discussion,"Specifically, SLC1A4L86_M88dup results in an N‐glycosylation and membrane trafficking defect that reduces the overall membrane localization of wild‐type SLC1A4 and the transport rate of SLC1A4 for L‐serine. N‐glycosylation has been linked to trafficking of numerous transporters, and the dominant‐negative impact of SLC1A4L86_M88dup on N‐glycosylation indicates that N‐glycosylation likely occurs mainly after the formation of trimeric protein and is necessary for normal SLC1A4 trafficking and function. Overall, these findings provide basic insights into SLC1A4 trafficking and function and expand the spectrum of SLC1A4‐related disorders.",0,negative_anchor,1before_1after,False,"N‐glycosylation has been linked to trafficking of numerous transporters,
 14
 , 
 15
  and the dominant‐negative impact of SLC1A4L86_M88dup on N‐glycosylation indicates that N‐glycosylation likely occurs mainly after the formation of trimeric protein and is necessary for normal SLC1A4 trafficking and function.",3
-10270265,Discussion,"N‐glycosylation has been linked to trafficking of numerous transporters,
-14
-, 
-15
- and the dominant‐negative impact of SLC1A4L86_M88dup on N‐glycosylation indicates that N‐glycosylation likely occurs mainly after the formation of trimeric protein and is necessary for normal SLC1A4 trafficking and function. Overall, these findings provide basic insights into SLC1A4 trafficking and function and expand the spectrum of SLC1A4‐related disorders.",0,negative_anchor,0before_2after,False,"N‐glycosylation has been linked to trafficking of numerous transporters,
+10270265,Discussion,"N‐glycosylation has been linked to trafficking of numerous transporters, and the dominant‐negative impact of SLC1A4L86_M88dup on N‐glycosylation indicates that N‐glycosylation likely occurs mainly after the formation of trimeric protein and is necessary for normal SLC1A4 trafficking and function. Overall, these findings provide basic insights into SLC1A4 trafficking and function and expand the spectrum of SLC1A4‐related disorders.",0,negative_anchor,0before_2after,False,"N‐glycosylation has been linked to trafficking of numerous transporters,
 14
 , 
 15
@@ -1067,10 +999,7 @@ Preprint). These observations raise the possibility that D1050V disrupts NaV1.2 
 10506865,abstract,"Due to bilateral pneumonia occurring at the beginning of the treatment, it was temporarily discontinued, and resumed in half the dose. Follow-up examination after 18 months showed a 90% reduction in seizure frequency with moderate improvement in attention function and nutritional status. Our case report emphasizes the importance of early genetic testing in patients with epileptic encephalopathy.",0,nearby_negative,before_block,False,Clinical consequences of mammalian target of rapamycin complex 1 (mTORC1) upregulation may be amenable to tailored treatment with mTOR inhibitors. A clinical trial on an international scale would be needed to draw conclusions.,3
 10506865,Introduction,"Rapamycin and structural analogs, like everolimus, directly inhibit mTOR. The clinicoradiological phenotypes associated with
 DEPDC5
-mutations share features with TSC, raising the possibility of therapies targeting this pathway. Due to the limited data available on mTOR inhibitor therapy in non-TSC epileptic patients,
-6
-7
-we present the clinical management of a patient with intractable epilepsy with skin hypopigmentation and a
+mutations share features with TSC, raising the possibility of therapies targeting this pathway. Due to the limited data available on mTOR inhibitor therapy in non-TSC epileptic patients, we present the clinical management of a patient with intractable epilepsy with skin hypopigmentation and a
 DEPDC5
 variant.",1,positive_anchor,2before_0after,False,"Due to the limited data available on mTOR inhibitor therapy in non-TSC epileptic patients,
 6
@@ -1080,10 +1009,7 @@ DEPDC5
 variant.",3
 10506865,Introduction,"The clinicoradiological phenotypes associated with
 DEPDC5
-mutations share features with TSC, raising the possibility of therapies targeting this pathway. Due to the limited data available on mTOR inhibitor therapy in non-TSC epileptic patients,
-6
-7
-we present the clinical management of a patient with intractable epilepsy with skin hypopigmentation and a
+mutations share features with TSC, raising the possibility of therapies targeting this pathway. Due to the limited data available on mTOR inhibitor therapy in non-TSC epileptic patients, we present the clinical management of a patient with intractable epilepsy with skin hypopigmentation and a
 DEPDC5
 variant.",1,positive_anchor,1before_1after,False,"Due to the limited data available on mTOR inhibitor therapy in non-TSC epileptic patients,
 6
@@ -1091,10 +1017,7 @@ variant.",1,positive_anchor,1before_1after,False,"Due to the limited data availa
 we present the clinical management of a patient with intractable epilepsy with skin hypopigmentation and a
 DEPDC5
 variant.",2
-10506865,Introduction,"Due to the limited data available on mTOR inhibitor therapy in non-TSC epileptic patients,
-6
-7
-we present the clinical management of a patient with intractable epilepsy with skin hypopigmentation and a
+10506865,Introduction,"Due to the limited data available on mTOR inhibitor therapy in non-TSC epileptic patients, we present the clinical management of a patient with intractable epilepsy with skin hypopigmentation and a
 DEPDC5
 variant.",1,positive_anchor,0before_2after,False,"Due to the limited data available on mTOR inhibitor therapy in non-TSC epileptic patients,
 6
@@ -1404,55 +1327,19 @@ DEPDC5
 14
 , 
 15
-, 
-17
-, 
-22
-, 
-28
-, 
-30
-, 
-35
-, 
-36
- except for one case with epilepsy, hemimegalencephaly and multiple cavernomas where the additional PDCD10 gene variant suggested a digenic contribution to the heterogeneous phenotype.",1,positive_anchor,0before_2after,False,The genetic background of the subject may certainly influence the expression of a specific variant and further studies will play a crucial role to investigate this aspect further.,3
+, except for one case with epilepsy, hemimegalencephaly and multiple cavernomas where the additional PDCD10 gene variant suggested a digenic contribution to the heterogeneous phenotype.",1,positive_anchor,0before_2after,False,The genetic background of the subject may certainly influence the expression of a specific variant and further studies will play a crucial role to investigate this aspect further.,3
 10690669,DISCUSSION,"Wider genomic testing (whole‐exome sequencing and whole genome sequencing) might prove helpful to rule out other gene candidates, which may be contributing to NPRL3 pathogenic mechanism or rather constitute alternative more plausible causes. To this regard in NRE, exome sequencing has been applied in 10 studies (10/18–56%, including our case), with no additional pathogenic or likely pathogenic variants reported,
 14
 , 
 15
-, 
-17
-, 
-22
-, 
-28
-, 
-30
-, 
-35
-, 
-36
- except for one case with epilepsy, hemimegalencephaly and multiple cavernomas where the additional PDCD10 gene variant suggested a digenic contribution to the heterogeneous phenotype. Differently, whole‐genome sequencing has only been reported once in the NRE cohort,
+, except for one case with epilepsy, hemimegalencephaly and multiple cavernomas where the additional PDCD10 gene variant suggested a digenic contribution to the heterogeneous phenotype. Differently, whole‐genome sequencing has only been reported once in the NRE cohort,
 23
  where it allowed us to identify a causative deletion in NPRL3, but no other CNVs or gene variants were observed.",0,nearby_negative,after_block,False,The genetic background of the subject may certainly influence the expression of a specific variant and further studies will play a crucial role to investigate this aspect further.,3
 10690669,DISCUSSION,"To this regard in NRE, exome sequencing has been applied in 10 studies (10/18–56%, including our case), with no additional pathogenic or likely pathogenic variants reported,
 14
 , 
 15
-, 
-17
-, 
-22
-, 
-28
-, 
-30
-, 
-35
-, 
-36
- except for one case with epilepsy, hemimegalencephaly and multiple cavernomas where the additional PDCD10 gene variant suggested a digenic contribution to the heterogeneous phenotype. Differently, whole‐genome sequencing has only been reported once in the NRE cohort,
+, except for one case with epilepsy, hemimegalencephaly and multiple cavernomas where the additional PDCD10 gene variant suggested a digenic contribution to the heterogeneous phenotype. Differently, whole‐genome sequencing has only been reported once in the NRE cohort,
 23
  where it allowed us to identify a causative deletion in NPRL3, but no other CNVs or gene variants were observed. Despite the so far timid results in identifying multiple variants and oligogenic mechanisms, a broader resort to whole‐genome sequencing together with deep phenotyping will help unveil the variability of presentations in NRE.",1,positive_anchor,2before_0after,False,"Despite the so far timid results in identifying multiple variants and oligogenic mechanisms, a broader resort to whole‐genome sequencing together with deep phenotyping will help unveil the variability of presentations in NRE.",3
 10690669,DISCUSSION,"Differently, whole‐genome sequencing has only been reported once in the NRE cohort,
@@ -1506,13 +1393,7 @@ DEPDC5
 41
  to FCD
 42
-, 
-43
-, 
-44
-, 
-45
- and HME.",0,nearby_negative,after_block,False,It remains unanswered how heterozygous germline mutations (as those listed in Table 2) lead to focal brain lesions.,3
+, and HME.",0,nearby_negative,after_block,False,It remains unanswered how heterozygous germline mutations (as those listed in Table 2) lead to focal brain lesions.,3
 10690669,DISCUSSION,"This observation further supports the need for a neuroimaging focused on the identification of structural abnormalities in NPRL3 patients, toward the early identification of good candidates for epilepsy surgery. However, only a few NRE patients undergoing surgery have been reported so far, making it difficult to draw any conclusion on the role of epilepsy surgery in this condition. Also, it is still unclear whether genetic mosaicism, the mechanism likely underlying the heterogenous phenotype of NRE (with and without MCD), may subtend a good surgical outcome.",1,positive_anchor,2before_0after,False,"Also, it is still unclear whether genetic mosaicism, the mechanism likely underlying the heterogenous phenotype of NRE (with and without MCD), may subtend a good surgical outcome.",3
 10690669,DISCUSSION,"However, only a few NRE patients undergoing surgery have been reported so far, making it difficult to draw any conclusion on the role of epilepsy surgery in this condition. Also, it is still unclear whether genetic mosaicism, the mechanism likely underlying the heterogenous phenotype of NRE (with and without MCD), may subtend a good surgical outcome. Among the diverse clinical phenotypes associated with loss‐of‐function variants in GATOR1 genes, NPRL3‐related SUDEP (sudden unexpected death in epilepsy) is of particular interest for pathophysiological reasons and prognostic implications.",1,positive_anchor,1before_1after,False,"Also, it is still unclear whether genetic mosaicism, the mechanism likely underlying the heterogenous phenotype of NRE (with and without MCD), may subtend a good surgical outcome.",3
 10690669,DISCUSSION,"Also, it is still unclear whether genetic mosaicism, the mechanism likely underlying the heterogenous phenotype of NRE (with and without MCD), may subtend a good surgical outcome. Among the diverse clinical phenotypes associated with loss‐of‐function variants in GATOR1 genes, NPRL3‐related SUDEP (sudden unexpected death in epilepsy) is of particular interest for pathophysiological reasons and prognostic implications. Two subjects in our family died.",1,positive_anchor,0before_2after,False,"Also, it is still unclear whether genetic mosaicism, the mechanism likely underlying the heterogenous phenotype of NRE (with and without MCD), may subtend a good surgical outcome.",3
@@ -1522,29 +1403,17 @@ DEPDC5
 10690669,DISCUSSION,"Nevertheless, the literature review does not allow us to infer conclusions, due to the limited number of reported patients and the rarity of this event. Further reports of large case series will play a relevant role in the elucidation of the frequency and epileptic phenotype in patients with NPRL3‐related SUDEP.",1,positive_anchor,1before_1after,False,Further reports of large case series will play a relevant role in the elucidation of the frequency and epileptic phenotype in patients with NPRL3‐related SUDEP.,2
 10690669,DISCUSSION,Further reports of large case series will play a relevant role in the elucidation of the frequency and epileptic phenotype in patients with NPRL3‐related SUDEP.,1,positive_anchor,0before_2after,False,Further reports of large case series will play a relevant role in the elucidation of the frequency and epileptic phenotype in patients with NPRL3‐related SUDEP.,1
 10690669,DISCUSSION,"Collectively, inactivating mutations in GATOR1 complex genes explain around 11% of focal epilepsies, whereas no pathogenic mutations were found in GATOR2 complex genes. GATOR1‐related focal epilepsies differ clinically from focal epilepsies due to mutations in ion channel genes by their association with FCD and seizures emerging from variable foci and nonetheless might confer an increased risk of sudden unexplained death in epilepsy (SUDEP). Nevertheless, the literature review does not allow us to infer conclusions, due to the limited number of reported patients and the rarity of this event.",0,nearby_negative,before_block,False,Further reports of large case series will play a relevant role in the elucidation of the frequency and epileptic phenotype in patients with NPRL3‐related SUDEP.,3
-10690669,INTRODUCTION,"The pathogenic relevance of variants affecting the function of mTOR inhibitors such as GATOR1 has subsequently emerged. Supporting examples include loss‐of‐function variants in NPRL3, DEPDC5, and NPRL2. Noteworthy, similar variants have also been associated with focal epilepsy without frank brain abnormalities,
-14
-, 
-17
- and the genes encoding for members of the GATOR1 complex are the most frequently mutated in focal epilepsies.",0,negative_anchor,2before_0after,False,"Noteworthy, similar variants have also been associated with focal epilepsy without frank brain abnormalities,
+10690669,INTRODUCTION,"The pathogenic relevance of variants affecting the function of mTOR inhibitors such as GATOR1 has subsequently emerged. Supporting examples include loss‐of‐function variants in NPRL3, DEPDC5, and NPRL2. Noteworthy, similar variants have also been associated with focal epilepsy without frank brain abnormalities, and the genes encoding for members of the GATOR1 complex are the most frequently mutated in focal epilepsies.",0,negative_anchor,2before_0after,False,"Noteworthy, similar variants have also been associated with focal epilepsy without frank brain abnormalities,
 14
 , 
 17
  and the genes encoding for members of the GATOR1 complex are the most frequently mutated in focal epilepsies.",3
-10690669,INTRODUCTION,"Supporting examples include loss‐of‐function variants in NPRL3, DEPDC5, and NPRL2. Noteworthy, similar variants have also been associated with focal epilepsy without frank brain abnormalities,
-14
-, 
-17
- and the genes encoding for members of the GATOR1 complex are the most frequently mutated in focal epilepsies. Although a growing interest has recently emerged about the role of mTORopathies in epilepsy, only 35 NPRL3 pathogenic and likely pathogenic variants have been reported in the literature so far.",0,negative_anchor,1before_1after,False,"Noteworthy, similar variants have also been associated with focal epilepsy without frank brain abnormalities,
+10690669,INTRODUCTION,"Supporting examples include loss‐of‐function variants in NPRL3, DEPDC5, and NPRL2. Noteworthy, similar variants have also been associated with focal epilepsy without frank brain abnormalities, and the genes encoding for members of the GATOR1 complex are the most frequently mutated in focal epilepsies. Although a growing interest has recently emerged about the role of mTORopathies in epilepsy, only 35 NPRL3 pathogenic and likely pathogenic variants have been reported in the literature so far.",0,negative_anchor,1before_1after,False,"Noteworthy, similar variants have also been associated with focal epilepsy without frank brain abnormalities,
 14
 , 
 17
  and the genes encoding for members of the GATOR1 complex are the most frequently mutated in focal epilepsies.",3
-10690669,INTRODUCTION,"Noteworthy, similar variants have also been associated with focal epilepsy without frank brain abnormalities,
-14
-, 
-17
- and the genes encoding for members of the GATOR1 complex are the most frequently mutated in focal epilepsies. Although a growing interest has recently emerged about the role of mTORopathies in epilepsy, only 35 NPRL3 pathogenic and likely pathogenic variants have been reported in the literature so far. In this study, we report a novel NPRL3 variant segregating within a family with multiple affected individuals with epilepsy and reviewed the pertinent literature about NPRL3‐related epilepsy (NRE), providing a detailed overview of the genotype and phenotype spectrum of this condition.",0,negative_anchor,0before_2after,False,"Noteworthy, similar variants have also been associated with focal epilepsy without frank brain abnormalities,
+10690669,INTRODUCTION,"Noteworthy, similar variants have also been associated with focal epilepsy without frank brain abnormalities, and the genes encoding for members of the GATOR1 complex are the most frequently mutated in focal epilepsies. Although a growing interest has recently emerged about the role of mTORopathies in epilepsy, only 35 NPRL3 pathogenic and likely pathogenic variants have been reported in the literature so far. In this study, we report a novel NPRL3 variant segregating within a family with multiple affected individuals with epilepsy and reviewed the pertinent literature about NPRL3‐related epilepsy (NRE), providing a detailed overview of the genotype and phenotype spectrum of this condition.",0,negative_anchor,0before_2after,False,"Noteworthy, similar variants have also been associated with focal epilepsy without frank brain abnormalities,
 14
 , 
 17
@@ -1756,21 +1625,13 @@ Cdkl5 mouse models across multiple laboratories. On the other hand, Cav2.3 KO mi
 10772300,abstract,"In this research endeavor, our goal is to expand our prior cohort of Turkish patients affected by SCN1A‐positive genetic epilepsy disorders. This will be accomplished by incorporating two recently discovered and infrequent index cases who possess a novel biallelic (homozygous) SCN1A missense variant, namely E158G, associated with Dravet syndrome. Furthermore, our intention is to use computational techniques to predict the molecular phenotypes of each distinct SCN1A variant that has been detected to date within our center.",0,nearby_negative,before_block,False,The correlation between genotype and phenotype in Dravet syndrome/GEFS+ is intricate and necessitates meticulous clinical investigation as well as advanced scientific exploration.,3
 10772300,abstract,"Broadened mechanistic and structural insights into NaV1.1 dysfunction offer significant promise in facilitating the development of targeted and effective therapies, which will ultimately enhance clinical outcomes in the treatment of epilepsy.",0,nearby_negative,after_block,False,The correlation between genotype and phenotype in Dravet syndrome/GEFS+ is intricate and necessitates meticulous clinical investigation as well as advanced scientific exploration.,1
 10772300,INTRODUCTION,"Contrarily, partial loss of function of NaV1.1, potentially due to missense variants with detectable I
-Na, aligns with milder GEFS+ phenotypes,
-17
-, 
-18
- albeit sometimes intensified by seizures. Similar to Dravet syndrome, certain GEFS+ SCN1A variants result in NaV1.1 gain‐of‐function. It is hypothesized that these missense mutations may hyperexcite excitatory neurons or trigger paradoxical γ‐aminobutyric acid (GABA)ergic excitation. However, further investigations are needed.",1,positive_anchor,2before_0after,False,"It is hypothesized that these missense mutations may hyperexcite excitatory neurons or trigger paradoxical γ‐aminobutyric acid (GABA)ergic excitation. However, further investigations are needed.",4
+Na, aligns with milder GEFS+ phenotypes, albeit sometimes intensified by seizures. Similar to Dravet syndrome, certain GEFS+ SCN1A variants result in NaV1.1 gain‐of‐function. It is hypothesized that these missense mutations may hyperexcite excitatory neurons or trigger paradoxical γ‐aminobutyric acid (GABA)ergic excitation. However, further investigations are needed.",1,positive_anchor,2before_0after,False,"It is hypothesized that these missense mutations may hyperexcite excitatory neurons or trigger paradoxical γ‐aminobutyric acid (GABA)ergic excitation. However, further investigations are needed.",4
 10772300,INTRODUCTION,"Similar to Dravet syndrome, certain GEFS+ SCN1A variants result in NaV1.1 gain‐of‐function. It is hypothesized that these missense mutations may hyperexcite excitatory neurons or trigger paradoxical γ‐aminobutyric acid (GABA)ergic excitation. However, further investigations are needed. Overall, these findings underscore the need for deeper understanding of Dravet syndrome and GEFS+, emphasizing the significance of targeting enhanced NaV1.1 activity.",1,positive_anchor,1before_1after,False,"It is hypothesized that these missense mutations may hyperexcite excitatory neurons or trigger paradoxical γ‐aminobutyric acid (GABA)ergic excitation. However, further investigations are needed.",4
 10772300,INTRODUCTION,"It is hypothesized that these missense mutations may hyperexcite excitatory neurons or trigger paradoxical γ‐aminobutyric acid (GABA)ergic excitation. However, further investigations are needed. Overall, these findings underscore the need for deeper understanding of Dravet syndrome and GEFS+, emphasizing the significance of targeting enhanced NaV1.1 activity. Here, we aim at extending our previous Turkish cohort with Dravet syndrome and GEFS+ spectrum
 22
  through adding two new and uncommon index cases harboring a novel Dravet syndrome‐associated biallelic (homozygous) SCN1A missense variant, as well as at computationally predicting molecular phenotypes for each novel SCN1A variant identified in our laboratory.",1,positive_anchor,0before_2after,False,"It is hypothesized that these missense mutations may hyperexcite excitatory neurons or trigger paradoxical γ‐aminobutyric acid (GABA)ergic excitation. However, further investigations are needed.",4
 10772300,INTRODUCTION,"Some gain‐of‐function mutations exacerbate the phenotype compared to typical SCN1A‐positive Dravet syndrome. Contrarily, partial loss of function of NaV1.1, potentially due to missense variants with detectable I
-Na, aligns with milder GEFS+ phenotypes,
-17
-, 
-18
- albeit sometimes intensified by seizures. Similar to Dravet syndrome, certain GEFS+ SCN1A variants result in NaV1.1 gain‐of‐function.",0,nearby_negative,before_block,False,"It is hypothesized that these missense mutations may hyperexcite excitatory neurons or trigger paradoxical γ‐aminobutyric acid (GABA)ergic excitation. However, further investigations are needed.",3
+Na, aligns with milder GEFS+ phenotypes, albeit sometimes intensified by seizures. Similar to Dravet syndrome, certain GEFS+ SCN1A variants result in NaV1.1 gain‐of‐function.",0,nearby_negative,before_block,False,"It is hypothesized that these missense mutations may hyperexcite excitatory neurons or trigger paradoxical γ‐aminobutyric acid (GABA)ergic excitation. However, further investigations are needed.",3
 10772300,INTRODUCTION,"Overall, these findings underscore the need for deeper understanding of Dravet syndrome and GEFS+, emphasizing the significance of targeting enhanced NaV1.1 activity. Here, we aim at extending our previous Turkish cohort with Dravet syndrome and GEFS+ spectrum
 22
  through adding two new and uncommon index cases harboring a novel Dravet syndrome‐associated biallelic (homozygous) SCN1A missense variant, as well as at computationally predicting molecular phenotypes for each novel SCN1A variant identified in our laboratory.",1,nearby_negative,after_block,True,"It is hypothesized that these missense mutations may hyperexcite excitatory neurons or trigger paradoxical γ‐aminobutyric acid (GABA)ergic excitation. However, further investigations are needed.",2
@@ -1956,20 +1817,8 @@ These data further underline the role of SCN1A-dsAS in regulation and especially
 21
  enhancing the expression of glutamic acid decarboxylase, promoting the release of GABA from presynaptic terminals, inhibiting GABA degradation and GABA transaminase, and increasing GABA synthesis. From this point of view, we speculated that the regulation of the GABAergic pathway might be an important mechanism involved in the pharmacological effect of VPA in the GABRG2(P282S) zebrafish. However, whether the modulation of protein acetylation is involved in the pharmacological effect of VPA needs further investigation.",1,nearby_negative,after_block,True,"Although VPA has been used in clinics for decades, the mechanism remains elusive.",3
 10867793,DISCUSSION,"From this point of view, we speculated that the regulation of the GABAergic pathway might be an important mechanism involved in the pharmacological effect of VPA in the GABRG2(P282S) zebrafish. However, whether the modulation of protein acetylation is involved in the pharmacological effect of VPA needs further investigation. Our previous research has found increased inflammatory factors in mutant GABRG2 transgenic zebrafish.",1,positive_anchor,1before_1after,False,"However, whether the modulation of protein acetylation is involved in the pharmacological effect of VPA needs further investigation.",3
-10867793,DISCUSSION,"However, whether the modulation of protein acetylation is involved in the pharmacological effect of VPA needs further investigation. Our previous research has found increased inflammatory factors in mutant GABRG2 transgenic zebrafish. Proinflammatory factors, such as IL‐1β, IL‐6, TNF‐α, and TGF‐β, were reported to play important roles in epileptogenesis,
-23
-, 
-24
-, 
-25
- indicating that inflammatory response in the brain is a crucial mechanism in the pathophysiology of epilepsy.",1,positive_anchor,0before_2after,False,"However, whether the modulation of protein acetylation is involved in the pharmacological effect of VPA needs further investigation.",3
-10867793,DISCUSSION,"Our previous research has found increased inflammatory factors in mutant GABRG2 transgenic zebrafish. Proinflammatory factors, such as IL‐1β, IL‐6, TNF‐α, and TGF‐β, were reported to play important roles in epileptogenesis,
-23
-, 
-24
-, 
-25
- indicating that inflammatory response in the brain is a crucial mechanism in the pathophysiology of epilepsy. The activation of inflammatory response might destroy the balance between glutamate and GABA, leading to the increase of excitability in the nervous system and seizure activity.",0,nearby_negative,after_block,False,"However, whether the modulation of protein acetylation is involved in the pharmacological effect of VPA needs further investigation.",3
+10867793,DISCUSSION,"However, whether the modulation of protein acetylation is involved in the pharmacological effect of VPA needs further investigation. Our previous research has found increased inflammatory factors in mutant GABRG2 transgenic zebrafish. Proinflammatory factors, such as IL‐1β, IL‐6, TNF‐α, and TGF‐β, were reported to play important roles in epileptogenesis, indicating that inflammatory response in the brain is a crucial mechanism in the pathophysiology of epilepsy.",1,positive_anchor,0before_2after,False,"However, whether the modulation of protein acetylation is involved in the pharmacological effect of VPA needs further investigation.",3
+10867793,DISCUSSION,"Our previous research has found increased inflammatory factors in mutant GABRG2 transgenic zebrafish. Proinflammatory factors, such as IL‐1β, IL‐6, TNF‐α, and TGF‐β, were reported to play important roles in epileptogenesis, indicating that inflammatory response in the brain is a crucial mechanism in the pathophysiology of epilepsy. The activation of inflammatory response might destroy the balance between glutamate and GABA, leading to the increase of excitability in the nervous system and seizure activity.",0,nearby_negative,after_block,False,"However, whether the modulation of protein acetylation is involved in the pharmacological effect of VPA needs further investigation.",3
 10867793,DISCUSSION,The results suggested a positive correlation between inflammatory response and epileptic phenotype. The comparison of brain transcriptome changes in the three zebrafish lines showed the differential activation of the IL‐2 receptor signal pathway. The role of IL‐2 in epilepsy is still controversial.,1,positive_anchor,2before_0after,False,The role of IL‐2 in epilepsy is still controversial.,3
 10867793,DISCUSSION,"The comparison of brain transcriptome changes in the three zebrafish lines showed the differential activation of the IL‐2 receptor signal pathway. The role of IL‐2 in epilepsy is still controversial. The plasma level of IL‐2 was found to be lower,
 28
@@ -2087,13 +1936,7 @@ Scn1b−/− mice have a phenotype that is more severe than DS, with early-onset
 9
 Kinesin superfamily (KIF) proteins, belonging to a class of motor proteins, play a role in conveying various cargoes, such as synaptic vesicles and protein complexes, along with microtubules (MTs)
 10
-, 
-11
-, 
-12
-, 
-13
- and also play coroles in combination with dynein and myosin superfamilies in cells.",1,positive_anchor,1before_1after,False,"However, the specific cause of about 55–60% of patients is unknown.",3
+, and also play coroles in combination with dynein and myosin superfamilies in cells.",1,positive_anchor,1before_1after,False,"However, the specific cause of about 55–60% of patients is unknown.",3
 10960728,INTRODUCTION,"However, the specific cause of about 55–60% of patients is unknown. Moreover, rare de novo or sporadic variants have been reported to be the most likely causes of severe DD or ID.
 3
 , 
@@ -2110,13 +1953,7 @@ Kinesin superfamily (KIF) proteins, belonging to a class of motor proteins, play
 9
 Kinesin superfamily (KIF) proteins, belonging to a class of motor proteins, play a role in conveying various cargoes, such as synaptic vesicles and protein complexes, along with microtubules (MTs)
 10
-, 
-11
-, 
-12
-, 
-13
- and also play coroles in combination with dynein and myosin superfamilies in cells. KIF proteins affect the neuronal development, plasticity, and function of axons, dendrites, and synapses by intracellular anterograde (kinesin‐mediated) and retrograde (dynein‐mediated) transport.",1,positive_anchor,0before_2after,False,"However, the specific cause of about 55–60% of patients is unknown.",3
+, and also play coroles in combination with dynein and myosin superfamilies in cells. KIF proteins affect the neuronal development, plasticity, and function of axons, dendrites, and synapses by intracellular anterograde (kinesin‐mediated) and retrograde (dynein‐mediated) transport.",1,positive_anchor,0before_2after,False,"However, the specific cause of about 55–60% of patients is unknown.",3
 10960728,INTRODUCTION,The global incidence of DD and ID (DD/ID) among children under the age of 5 years was one in 100 live births in 2019. The clinical diagnosis of severe DD/ID in early childhood is based on a substantial delay in cognitive development. Most serious forms of DD or ID result from genetic factors.,0,nearby_negative,before_block,False,"However, the specific cause of about 55–60% of patients is unknown.",3
 10960728,INTRODUCTION,"Moreover, rare de novo or sporadic variants have been reported to be the most likely causes of severe DD or ID.
 3
@@ -2134,13 +1971,7 @@ Kinesin superfamily (KIF) proteins, belonging to a class of motor proteins, play
 9
 Kinesin superfamily (KIF) proteins, belonging to a class of motor proteins, play a role in conveying various cargoes, such as synaptic vesicles and protein complexes, along with microtubules (MTs)
 10
-, 
-11
-, 
-12
-, 
-13
- and also play coroles in combination with dynein and myosin superfamilies in cells. KIF proteins affect the neuronal development, plasticity, and function of axons, dendrites, and synapses by intracellular anterograde (kinesin‐mediated) and retrograde (dynein‐mediated) transport. Studies suggested that KIF genes might play a crucial role in neural development in mouse models.",0,nearby_negative,after_block,False,"However, the specific cause of about 55–60% of patients is unknown.",3
+, and also play coroles in combination with dynein and myosin superfamilies in cells. KIF proteins affect the neuronal development, plasticity, and function of axons, dendrites, and synapses by intracellular anterograde (kinesin‐mediated) and retrograde (dynein‐mediated) transport. Studies suggested that KIF genes might play a crucial role in neural development in mouse models.",0,nearby_negative,after_block,False,"However, the specific cause of about 55–60% of patients is unknown.",3
 10960728,INTRODUCTION,"Conversely, Kif17 overexpression in mice showed enhanced spatial learning abilities. In humans, previous studies indicated that the KIF genes were remarkably correlated with neurodegenerative and neurodevelopmental disorders’ pathogenesis. However, the studies, reporting the correlations of variants in KIF genes with DD or ID, are limited.",1,positive_anchor,2before_0after,False,"However, the studies, reporting the correlations of variants in KIF genes with DD or ID, are limited.",3
 10960728,INTRODUCTION,"In humans, previous studies indicated that the KIF genes were remarkably correlated with neurodegenerative and neurodevelopmental disorders’ pathogenesis. However, the studies, reporting the correlations of variants in KIF genes with DD or ID, are limited. For example, patients with ID and malformations of cortical development (MCD) were found to carry kinesin family member 2A and 5C (KIF2A and KIF5C) gene variants in 2013.",1,positive_anchor,1before_1after,False,"However, the studies, reporting the correlations of variants in KIF genes with DD or ID, are limited.",3
 10960728,INTRODUCTION,"However, the studies, reporting the correlations of variants in KIF genes with DD or ID, are limited. For example, patients with ID and malformations of cortical development (MCD) were found to carry kinesin family member 2A and 5C (KIF2A and KIF5C) gene variants in 2013. The current study reported a novel heterozygous in‐frame deletion (c.265_267delTCA) in exon 3 of the KIF5C gene, which resulted in symptomatic epilepsy, seizures, ID, brain atrophy, and psychomotor retardation in a Chinese patient.",1,positive_anchor,0before_2after,False,"However, the studies, reporting the correlations of variants in KIF genes with DD or ID, are limited.",3
@@ -2222,15 +2053,9 @@ Kinesin superfamily (KIF) proteins, belonging to a class of motor proteins, play
 11047245,Introduction,"The seizure profile of GoF and LoF missense variants does overlap, but some distinctions have emerged. Status and myoclonic seizures are more predominantly seen in individuals with GoF variants, while absence seizures are more commonly observed in those with LoF variants. The spectrum of CACNA1A-related disorders has also grown to include congenital ataxia, hypotonia, dystonia, behavioral and cognitive impairment, global developmental delay, intellectual disability, and autism, all at varying levels of severity and reported with and without seizures.7,10,11,18–21 While seizures are not seen in all individuals with CACNA1A variants, the prevalence rate has been reported as high as 60–70%10,11 and as low as 20–25% when the patient cohort includes more adults.",0,nearby_negative,before_block,False,"Further studies are needed to confirm whether this is truly the natural progression of seizures as patients age, or if it is because there has only been a relatively small adult population identified.",3
 11047245,Introduction,"In addition, status epilepticus or seizure-like events have been seen to precede or follow hemiplegic migraines (HM).20,23–25 Individuals diagnosed with EA2 were also shown to have a sevenfold increased risk of developing epilepsy. What links ataxia and migraine to epilepsy is still unclear, as there are distinct mechanisms underlying EA2 and HM. However, given that seizures are reported with both disorders, the relationship between them warrants further investigation and could shed new light on therapeutic approaches with a broader impact.",1,nearby_negative,after_block,True,"Further studies are needed to confirm whether this is truly the natural progression of seizures as patients age, or if it is because there has only been a relatively small adult population identified.",3
 11047245,Introduction,"What links ataxia and migraine to epilepsy is still unclear, as there are distinct mechanisms underlying EA2 and HM. However, given that seizures are reported with both disorders, the relationship between them warrants further investigation and could shed new light on therapeutic approaches with a broader impact. Limitations in developing treatments and careAlthough CACNA1A variants have been linked to distinct disease phenotypes for over 25 years, and despite significant progress in understanding disease mechanisms using various animal and cellular models in the last few decades, translation to the clinic remains a huge challenge.",1,positive_anchor,0before_2after,False,"What links ataxia and migraine to epilepsy is still unclear, as there are distinct mechanisms underlying EA2 and HM.",3
-11047245,Introduction,"However, given that seizures are reported with both disorders, the relationship between them warrants further investigation and could shed new light on therapeutic approaches with a broader impact. Limitations in developing treatments and careAlthough CACNA1A variants have been linked to distinct disease phenotypes for over 25 years, and despite significant progress in understanding disease mechanisms using various animal and cellular models in the last few decades, translation to the clinic remains a huge challenge. The estimated incidence rate for CACNA1A-related disorders is 1:11,700,
-27
- indicating a large patient population in need of better treatment and care.",1,nearby_negative,after_block,True,"What links ataxia and migraine to epilepsy is still unclear, as there are distinct mechanisms underlying EA2 and HM.",3
-11047245,Introduction,"Limitations in developing treatments and careAlthough CACNA1A variants have been linked to distinct disease phenotypes for over 25 years, and despite significant progress in understanding disease mechanisms using various animal and cellular models in the last few decades, translation to the clinic remains a huge challenge. The estimated incidence rate for CACNA1A-related disorders is 1:11,700,
-27
- indicating a large patient population in need of better treatment and care. Among the roadblocks identified in the quest for better therapies, a comprehensive understanding of CACNA1A-related disorders in humans has yet to be reached.",1,nearby_negative,after_block,True,"However, given that seizures are reported with both disorders, the relationship between them warrants further investigation and could shed new light on therapeutic approaches with a broader impact.",3
-11047245,Introduction,"The estimated incidence rate for CACNA1A-related disorders is 1:11,700,
-27
- indicating a large patient population in need of better treatment and care. Among the roadblocks identified in the quest for better therapies, a comprehensive understanding of CACNA1A-related disorders in humans has yet to be reached. Molecular and clinical data are available for a limited number of variants and are not always presented together.",1,positive_anchor,1before_1after,False,"Among the roadblocks identified in the quest for better therapies, a comprehensive understanding of CACNA1A-related disorders in humans has yet to be reached.",3
+11047245,Introduction,"However, given that seizures are reported with both disorders, the relationship between them warrants further investigation and could shed new light on therapeutic approaches with a broader impact. Limitations in developing treatments and careAlthough CACNA1A variants have been linked to distinct disease phenotypes for over 25 years, and despite significant progress in understanding disease mechanisms using various animal and cellular models in the last few decades, translation to the clinic remains a huge challenge. The estimated incidence rate for CACNA1A-related disorders is 1:11, indicating a large patient population in need of better treatment and care.",1,nearby_negative,after_block,True,"What links ataxia and migraine to epilepsy is still unclear, as there are distinct mechanisms underlying EA2 and HM.",3
+11047245,Introduction,"Limitations in developing treatments and careAlthough CACNA1A variants have been linked to distinct disease phenotypes for over 25 years, and despite significant progress in understanding disease mechanisms using various animal and cellular models in the last few decades, translation to the clinic remains a huge challenge. The estimated incidence rate for CACNA1A-related disorders is 1:11, indicating a large patient population in need of better treatment and care. Among the roadblocks identified in the quest for better therapies, a comprehensive understanding of CACNA1A-related disorders in humans has yet to be reached.",1,nearby_negative,after_block,True,"However, given that seizures are reported with both disorders, the relationship between them warrants further investigation and could shed new light on therapeutic approaches with a broader impact.",3
+11047245,Introduction,"The estimated incidence rate for CACNA1A-related disorders is 1:11, indicating a large patient population in need of better treatment and care. Among the roadblocks identified in the quest for better therapies, a comprehensive understanding of CACNA1A-related disorders in humans has yet to be reached. Molecular and clinical data are available for a limited number of variants and are not always presented together.",1,positive_anchor,1before_1after,False,"Among the roadblocks identified in the quest for better therapies, a comprehensive understanding of CACNA1A-related disorders in humans has yet to be reached.",3
 11047245,Introduction,"Among the roadblocks identified in the quest for better therapies, a comprehensive understanding of CACNA1A-related disorders in humans has yet to be reached. Molecular and clinical data are available for a limited number of variants and are not always presented together. Several genotype–phenotype studies have been published with a limited number of patients, but the spectrum and overlap of symptoms among variants remain a challenge in trying to tease out robust correlations.",1,positive_anchor,0before_2after,False,"Among the roadblocks identified in the quest for better therapies, a comprehensive understanding of CACNA1A-related disorders in humans has yet to be reached.",3
 11047245,Introduction,"Molecular and clinical data are available for a limited number of variants and are not always presented together. Several genotype–phenotype studies have been published with a limited number of patients, but the spectrum and overlap of symptoms among variants remain a challenge in trying to tease out robust correlations. This is also a barrier to understanding and connecting the disease mechanisms that contribute to the spectrum of seizures in humans.",0,nearby_negative,after_block,False,"Among the roadblocks identified in the quest for better therapies, a comprehensive understanding of CACNA1A-related disorders in humans has yet to be reached.",3
 11047245,Introduction,"This is also a barrier to understanding and connecting the disease mechanisms that contribute to the spectrum of seizures in humans. Work in rodent models of the disease has revealed the complex mechanisms underlying the emergence of seizures in CACNA1A-related disorders. Cellular mechanisms of CACNA1A-induced absence epilepsy are traced back to a disruption of thalamocortical circuitry, including reduced synaptic release from layer VI pyramidal neurons projecting to the thalamus,

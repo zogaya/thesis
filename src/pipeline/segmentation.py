@@ -94,6 +94,37 @@ _CITATION_MARKER_RE = re.compile(
     r")(?=[A-Z])"
 )
 
+# Same citation-marker artifact, but sitting mid-sentence (after a comma,
+# before a lowercase continuation) rather than between two sentences, e.g.
+# "...milder GEFS+ phenotypes,\n17\n, \n18\n albeit sometimes intensified..."
+# This can't be handled by adding a sentence-boundary cut point (it isn't
+# one -- the sentence continues past it), so it's removed directly from
+# rendered text rather than folded into segment_sentences. Requires 2+
+# digit groups (same reasoning as above) AND at least one literal embedded
+# newline actually present in the match, checked programmatically since a
+# lookbehind/lookahead can't express "contains a newline somewhere in a
+# variable-length match". The newline requirement matters here specifically
+# because "after a comma" alone is NOT a safe anchor on its own -- checked
+# against the full corpus, a comma-anchored rule with no newline
+# requirement collides with ordinary comma-separated number lists (patient
+# IDs like "Patients 2, 5, 10 and 11", reaction times like "3 h"). With the
+# newline required: 19 matches in the full corpus, 0 collisions.
+_MIDSENTENCE_CITATION_MARKER_RE = re.compile(
+    r"(?<=,)\s*\d{1,3}\s*(?:[,\n]\s*\d{1,3}\s*){1,5}(?=[a-z])"
+)
+
+
+def strip_midsentence_citation_markers(text):
+    """Remove mid-sentence citation-marker spans (see
+    _MIDSENTENCE_CITATION_MARKER_RE) from already-rendered text, replacing
+    each with a single space so the words on either side don't get glued
+    together. Safe to call on a whole section or on an assembled window's
+    text -- it's a plain content substitution, unrelated to sentence
+    boundaries or character offsets."""
+    def repl(m):
+        return " " if "\n" in m.group() else m.group()
+    return _MIDSENTENCE_CITATION_MARKER_RE.sub(repl, text)
+
 _segmenter = pysbd.Segmenter(language="en", clean=False, char_span=True)
 
 

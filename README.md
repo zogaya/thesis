@@ -88,15 +88,18 @@ segmentation:
    e.g. `"...PGM3,4\nCHD4,5\nUNC13B,6\n..."` — a plain sentence segmenter
    (pysbd) treats these as paragraph breaks and shreds the sentence into
    one-token fragments.
-5. **Stray multi-number citation markers** left dangling between two real
-   sentences, e.g. `"...NaV1.1 activity.20\n, \n21\n It is hypothesized..."`
-   (originally inline superscript `"activity.20,21"` citing references 20
-   and 21). Found via manual spot-checking of `train.csv` — neither pysbd
-   nor the boundary-repair rule creates a cut point here (pysbd doesn't
-   split before a digit, to avoid breaking decimals/numbered lists; the
-   digit isn't uppercase so the repair rule doesn't fire either), so the
-   marker gets glued onto the front of the following sentence instead of
-   being removed.
+5. **Stray multi-number citation markers**, in two positions:
+   - Between two real sentences, e.g. `"...NaV1.1 activity.20\n, \n21\n It
+     is hypothesized..."` (originally inline superscript `"activity.20,21"`
+     citing references 20 and 21). Neither pysbd nor the boundary-repair
+     rule creates a cut point here (pysbd doesn't split before a digit, to
+     avoid breaking decimals/numbered lists; the digit isn't uppercase so
+     the repair rule doesn't fire either), so the marker gets glued onto
+     the front of the following sentence instead of being removed.
+   - **Mid-sentence**, e.g. `"...milder GEFS+ phenotypes,\n17\n, \n18\n
+     albeit sometimes intensified..."` — same extraction artifact, but
+     sitting inside a sentence rather than between two. Found via manual
+     spot-checking of `train.csv`.
 
 Implementation (`src/pipeline/segmentation.py`), all offset-preserving —
 nothing is ever inserted or deleted, so sentence spans are always valid
@@ -139,6 +142,20 @@ character offsets into the *original, untouched* section text:
   signal there's no safe way to tell those apart from a citation marker —
   checked against the full corpus, the newline-bookended shape has 0
   collisions with gene/variant-identifier text.
+- **Mid-sentence citation-marker stripping**: a different mechanism from
+  the above, since a mid-sentence marker doesn't sit at a sentence
+  boundary — instead of a cut point, the matched span is removed directly
+  from the assembled window text (in `build_dataset.py`, after sentences
+  are joined), replaced with a single space. Fires only when a span,
+  immediately after a comma and immediately before a lowercase letter,
+  has **2 or more** digit groups **and** contains an actual embedded
+  newline. Both conditions matter: "after a comma" alone collides with
+  ordinary comma-separated number lists (`"Patients 2, 5, 10 and 11"`,
+  reaction times like `"3 h"`); requiring 2+ groups and a real newline
+  together, checked against the full corpus, leaves 0 collisions across
+  19 genuine matches. A single mid-sentence number (`",\n3\n of
+  which..."`) is deliberately left alone, same reasoning as the
+  single-number case above.
 - Final sentence spans = the union of pysbd's boundaries, the repair cut
   points, the heading-span boundaries, and the citation-marker-span
   boundaries, split into segments, trimmed, with pure-heading and
@@ -152,15 +169,24 @@ citation-marker fragments surviving as their own sentence (down from 303
 multi-number + 35 newline-bookended single-number occurrences in the raw
 corpus).
 
-**Known remaining gap** (documented, not fixed): a sentence-ending period
-immediately followed by a *single* citation number with **no newline
-bookend** then a space then a capitalized word (e.g. `"...and SYNGAP1.9
-However, the causative genes..."`) is not split, because a lone digit in
-that position, without the newline signature, is indistinguishable from a
-decimal number or a gene/variant identifier without risking real content.
-This under-splits rather than corrupts — worth revisiting if it turns out
-to affect anchor snapping, but it did not in this corpus (0/863 anchors
-affected).
+**Known remaining gap** (documented, not fixed): a single citation number
+with no newline bookend — whether between sentences (`"...and SYNGAP1.9
+However..."`), mid-sentence after a comma (`"...factors,\n3\n of
+which..."`), or glued directly to a preceding word with no punctuation
+anchor at all (`"...database\n15\n showed..."`) — is left alone. In every
+one of these positions, a lone digit is indistinguishable from a decimal
+number or a real gene/variant identifier without risking real content,
+and in the last position there isn't even a reliable punctuation anchor
+to check. A rough full-corpus scan after the fixes above still finds
+~116 windows with some residual single-number artifact of this kind, so
+it's a real, present limitation, not a hypothetical one — but extending
+further would mean guessing at increasingly ambiguous shapes, including
+ones that would actively destroy real content if matched wrong (e.g. the
+statistical symbol "I²" and genuine citation years like "(Nelson et al.,
+2022 Preprint)" both surfaced as near-miss shapes while checking this).
+This under-splits/under-cleans rather than corrupts — worth revisiting
+with a more targeted approach if it turns out to affect anchor snapping,
+but it did not in this corpus (0/863 anchors affected).
 
 ## 4. Anchor snapping
 
