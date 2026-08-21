@@ -124,16 +124,21 @@ character offsets into the *original, untouched* section text:
   pysbd, so those newlines stop being read as paragraph breaks. Only this
   copy is used to get pysbd's boundary offsets; nothing downstream ever
   reads from it.
-- **Citation-marker stripping**: a span matching two or more short
-  (1-3 digit) comma/newline-separated number groups, immediately after
-  sentence-ending punctuation and immediately before the next sentence's
-  capital letter, is treated the same way as a heading span — cut points
-  at both ends, excluded from sentence content. Deliberately requires
-  **2 or more** number groups: a single bare number in this position is
-  left alone, since gene/variant identifiers routinely end in one digit
-  followed by a comma (`"PCDH19,"`, `"Cys182,"`, `"RBFOX1,"`) and there's
-  no safe way to tell those apart from a lone citation number without
-  risking real content.
+- **Citation-marker stripping**: treated the same way as a heading span
+  (cut points at both ends, excluded from sentence content) whenever a
+  span, immediately after sentence-ending punctuation and immediately
+  before the next sentence's capital letter, matches one of two shapes:
+  (a) **two or more** short comma/newline-separated number groups
+  (`".20,21 It..."`), or (b) a **single** number group but only when
+  bookended by a literal newline on both sides (`".\n19\n Similar..."`,
+  a further extraction-artifact signature found via manual spot-checking
+  of `train.csv`). A lone number *without* the newline bookend
+  (`".9 However..."`) is deliberately left alone: gene/variant
+  identifiers routinely end in one digit followed directly by a comma
+  (`"PCDH19,"`, `"Cys182,"`, `"RBFOX1,"`), and without the double-newline
+  signal there's no safe way to tell those apart from a citation marker —
+  checked against the full corpus, the newline-bookended shape has 0
+  collisions with gene/variant-identifier text.
 - Final sentence spans = the union of pysbd's boundaries, the repair cut
   points, the heading-span boundaries, and the citation-marker-span
   boundaries, split into segments, trimmed, with pure-heading and
@@ -142,19 +147,20 @@ character offsets into the *original, untouched* section text:
 **Verified on the full corpus**: 0 residual heading leftovers, 0 residual
 unprotected glued boundaries (the only `[letter].{Upper}` pattern left
 in any output sentence is the intentionally-protected `p.` HGVS prefix,
-291 occurrences, all genuine variant notation), 0 residual multi-number
+291 occurrences, all genuine variant notation), 0 residual bare-digit
 citation-marker fragments surviving as their own sentence (down from 303
-in the raw corpus).
+multi-number + 35 newline-bookended single-number occurrences in the raw
+corpus).
 
 **Known remaining gap** (documented, not fixed): a sentence-ending period
-immediately followed by a *single* citation number then a space then a
-capitalized word (e.g. `"...and SYNGAP1.9 However, the causative
-genes..."`) is not split, because a lone digit in that position is
-indistinguishable from a decimal number or a gene/variant identifier
-without risking real content — same reasoning as why citation-marker
-stripping requires 2+ number groups. This under-splits rather than
-corrupts — worth revisiting if it turns out to affect anchor snapping,
-but it did not in this corpus (0/863 anchors affected).
+immediately followed by a *single* citation number with **no newline
+bookend** then a space then a capitalized word (e.g. `"...and SYNGAP1.9
+However, the causative genes..."`) is not split, because a lone digit in
+that position, without the newline signature, is indistinguishable from a
+decimal number or a gene/variant identifier without risking real content.
+This under-splits rather than corrupts — worth revisiting if it turns out
+to affect anchor snapping, but it did not in this corpus (0/863 anchors
+affected).
 
 ## 4. Anchor snapping
 

@@ -73,15 +73,25 @@ _MISSING_BOUNDARY_RE = re.compile(r"[A-Za-z0-9]\.(?=[A-Z])")
 # Stray citation-superscript reference numbers left behind by extraction,
 # e.g. "...enhanced NaV1.1 activity.20\n, \n21\n It is hypothesized..."
 # (originally inline superscript "activity.20,21" citing references 20 and
-# 21). Requires TWO OR MORE short comma/newline-separated digit groups
-# immediately after sentence-ending punctuation and immediately before the
-# next sentence's capital letter -- a shape real prose doesn't produce, so
-# it's safe to treat as noise. A single bare number in this position is
-# deliberately NOT matched: with only one digit group there's no way to
-# distinguish a citation marker from a real gene/variant identifier
-# (e.g. "PCDH19,", "Cys182,") without risking removing real content.
+# 21). Two safe-to-strip shapes, both anchored right after sentence-ending
+# punctuation and right before the next sentence's capital letter:
+#   (a) TWO OR MORE short comma/newline-separated digit groups -- a shape
+#       real prose doesn't produce, so it's unambiguous regardless of
+#       surrounding whitespace.
+#   (b) a SINGLE digit group, but only when bookended by a literal newline
+#       on both sides (".\n19\n Similar..."). A lone number with no
+#       newline bookend (".9 However...") is deliberately left alone --
+#       real gene/variant identifiers routinely end in one digit followed
+#       directly by a comma (e.g. "PCDH19,", "Cys182,"), so without the
+#       double-newline signal there's no safe way to tell those apart from
+#       a citation marker. With it, checked against the full corpus: 0
+#       collisions with gene/variant-identifier text.
 _CITATION_MARKER_RE = re.compile(
-    r"(?<=[.!?])\s*\d{1,3}\s*(?:[,\n]\s*\d{1,3}\s*){1,5}(?=[A-Z])"
+    r"(?<=[.!?])(?:"
+    r"\s*\d{1,3}\s*(?:[,\n]\s*\d{1,3}\s*){1,5}"
+    r"|"
+    r"\n\d{1,3}\n\s*"
+    r")(?=[A-Z])"
 )
 
 _segmenter = pysbd.Segmenter(language="en", clean=False, char_span=True)
