@@ -279,7 +279,74 @@ negative to positive via the positive-wins rule.
   tokenizer/model, since a 254-word biomedical window will run well past
   a typical 512-subword-token BERT budget once split.
 
+## 9. Model training
+
+Per the supervisor's requirement to compare several models, `train_model.py`
+fine-tunes each as a binary sequence classifier (encoder + classification
+head, via `AutoModelForSequenceClassification`) on `train.csv`, evaluates
+on `eval.csv`. One shared script, parameterized by model name, so every
+model trains under identical conditions (same hyperparameters, same data,
+same metric computation) — that matters for the comparison to be fair.
+
+**Models compared:**
+- `bert` → `bert-base-cased` — generic baseline, not biomedical-specific.
+  Included so domain adaptation can be *shown* to help, not assumed.
+- `biobert` → `dmis-lab/biobert-base-cased-v1.2` — BERT continued-pretrained
+  on PubMed abstracts + PMC full text.
+- `pubmedbert` → `microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext`
+  (renamed from "PubMedBERT"; old identifier still resolves) — trained
+  from scratch on PubMed text with its own biomedical vocabulary, rather
+  than continued-pretrained from generic BERT. Only ships **uncased** — no
+  cased variant exists, unlike the other two, so this one model loses
+  case information (e.g. `NPRL3` vs lowercase) that the tokenizer would
+  otherwise preserve. A real, model-specific limitation, not a choice.
+
+**No extra text cleanup at tokenization time.** The artifact repair
+(glued sentences, headings, citation markers) already happened during
+dataset construction — see sections 3 and 5 above — specifically because
+it required sentence-level understanding a subword tokenizer doesn't
+have. Tokenization itself is just subword splitting + special tokens +
+truncation, all handled by `AutoTokenizer`. No classic NLP preprocessing
+(lowercasing, stopword removal, stemming) is applied — that would remove
+signal these models were pretrained to expect and use.
+
+**Usage:**
+```
+python train_model.py --model bert
+python train_model.py --model biobert
+python train_model.py --model pubmedbert
+```
+Writes `results/<model>/results.json` (hyperparameters, eval metrics,
+confusion matrix, per-epoch training log) and
+`results/<model>/confusion_matrix.png`. Model weights are **not** saved
+by default (pass `--save-model-dir` to save them somewhere outside the
+repo) — a fine-tuned checkpoint is large (100s of MB) and doesn't belong
+in git; only the small metrics/logs do.
+
+**Running it**: this needs real GPU-friendly compute, so the intended
+flow is Colab, not local: clone the repo there, `pip install -r
+requirements.txt`, then run the commands above (prefixed with `!` in a
+notebook cell, since a bare `python ...` line is interpreted as Python
+code by the cell, not a shell command). Download the resulting
+`results/<model>/` folder back and commit it from a local clone — Colab
+has no saved GitHub credentials, so this avoids setting up token auth
+inside a notebook.
+
+**Verification status**: unlike the dataset-build pipeline, this script
+could not be executed end-to-end in the environment it was written in —
+`huggingface.co` is network-blocked there, so the actual model
+download/train/eval loop is unverified. Everything that *doesn't* require
+downloading a model was tested directly: CSV loading against the real
+`train.csv`/`eval.csv`, `compute_metrics` against realistic fake
+logits/labels, `WindowDataset` indexing, `plot_confusion_matrix` output,
+CLI argument parsing, and `TrainingArguments` construction with the exact
+parameters the script uses. The Hugging Face `from_pretrained(...)` /
+`Trainer.train()` / `.evaluate()` / `.predict()` calls themselves have not
+been run — that verification happens on first real run, in Colab.
+
 ## Next steps
 
-Model training (tokenizer/model choice, max-length/truncation strategy)
-is not yet designed — to be added once this dataset is validated.
+Once results exist for all three models: compare metrics across them,
+write up the comparison, and decide whether any hyperparameter tuning or
+error analysis (e.g. reading through false positives/negatives on
+`eval.csv`) is warranted before finalizing.

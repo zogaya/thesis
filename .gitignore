@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 .DS_Store
 .vscode/
+
+# transient Trainer output dir -- no checkpoints are written to it
+# (save_strategy="no" in train_model.py), but guard against it anyway
+results/*/_checkpoints/

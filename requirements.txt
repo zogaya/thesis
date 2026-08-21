@@ -2,3 +2,7 @@ pysbd==0.3.4
 pandas>=1.5
 matplotlib>=3.5
 jupyter>=1.0
+torch>=2.0
+transformers>=4.40
+accelerate>=0.30
+scikit-learn>=1.3
