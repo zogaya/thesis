@@ -332,61 +332,61 @@ code by the cell, not a shell command). Download the resulting
 has no saved GitHub credentials, so this avoids setting up token auth
 inside a notebook.
 
-**Verification status**: unlike the dataset-build pipeline, this script
-has not been executed end-to-end yet. Everything that *doesn't* require
-downloading a model was tested directly and passed: CSV loading against
-the real `train.csv`/`eval.csv`, `compute_metrics` against realistic fake
-logits/labels, `WindowDataset` indexing, `plot_confusion_matrix` output,
-CLI argument parsing, and `TrainingArguments` construction with the exact
-parameters the script uses.
+**Verification status**: executed end-to-end for real, in a session whose
+network policy had just been updated to allow `huggingface.co`,
+`*.huggingface.co`, and `*.hf.co` (a previous session's proxy had returned
+403 on model-weight downloads — see git history for the diagnosis). Access
+was confirmed first (`bert-base-cased` tokenizer *and* full model weights,
+not just the tokenizer), then all three models were trained with the
+script's default hyperparameters (4 epochs, batch size 8, lr 2e-5,
+max_length 512, seed 42) on CPU (no GPU was available in that session —
+each model took roughly 1.5-3 hours; see `results/<model>/results.json`
+for full per-epoch logs). No errors or silent failures in any run.
 
-The actual `from_pretrained(...)` / `Trainer.train()` / `.evaluate()` /
-`.predict()` calls were partially checked in the environment this was
-written in, which has a restrictive network egress policy: the
-`bert-base-cased` **tokenizer** downloaded and ran correctly (confirmed
-real, correct subword output on a real biomedical sentence), but the
-**model weights** (~430MB) failed — not a code bug, but that
-environment's proxy returning 403 on the large-file transfer, whether via
-Hugging Face's "Xet" storage backend (`*.hf.co`) or the classic CDN
-fallback (`*.huggingface.co`, as a wildcard — a bare `huggingface.co`
-entry doesn't cover the CDN subdomains large files are actually served
-from). Both domains have since been added to that environment's network
-allowlist, but the change only applies to *new* sessions, not the one
-that discovered the issue.
+## 10. Results
 
-## Handoff to a new session
+| model | checkpoint | eval accuracy | precision | recall | F1 |
+|---|---|---|---|---|---|
+| bert | `bert-base-cased` | 0.884 | 0.881 | 0.861 | 0.871 |
+| biobert | `dmis-lab/biobert-base-cased-v1.2` | **0.924** | 0.908 | **0.926** | **0.917** |
+| pubmedbert | `microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext` | 0.903 | **0.909** | 0.874 | 0.891 |
 
-This environment's network policy was just updated (`huggingface.co`,
-`*.huggingface.co`, `*.hf.co` added to the allowlist) specifically so
-`train_model.py` could be run and verified for real. Whoever picks this
-up next (a fresh session was required for the policy change to take
-effect) should:
+Confusion matrices (rows = actual [neg, pos], cols = predicted [neg, pos],
+682 eval windows: 309 positive / 373 negative):
+- bert: `[[337, 36], [43, 266]]`
+- biobert: `[[344, 29], [23, 286]]`
+- pubmedbert: `[[346, 27], [39, 270]]`
 
-1. Confirm access actually works now: try downloading `bert-base-cased`
-   (tokenizer *and* model weights, not just the tokenizer) before
-   assuming anything about the code.
-2. If that succeeds, run `train_model.py` for all three models directly
-   in that environment (`--model bert`, `--model biobert`,
-   `--model pubmedbert`) and treat this as the first real end-to-end
-   verification the script has had — read through the output for
-   correctness the way the dataset pipeline was verified earlier in this
-   project (sanity-check the metrics look plausible, the confusion matrix
-   makes sense, nothing silently failed), not just "did it run without
-   crashing."
-3. If large-file access still doesn't work even after the policy update
-   (e.g. a subdomain wasn't covered, or the CDN host differs from what
-   was seen before), report exactly what failed rather than guessing at
-   another workaround — the dataset-build phase of this project ran into
-   several environment-specific quirks like this, and each one got
-   diagnosed precisely rather than worked around blindly.
-4. Once real results exist for all three models, update this README's
-   "Verification status" above to reflect what actually happened
-   (replacing this handoff section), commit `results/<model>/` for each
-   model, and continue with the comparison step below.
+**biobert wins** on accuracy, recall, and F1, and is effectively tied with
+pubmedbert on precision (0.908 vs 0.909) — continued-pretraining BERT on
+PubMed text helps more here than training a biomedical vocabulary from
+scratch (pubmedbert), and both biomedical models clearly beat the generic
+`bert-base-cased` baseline, confirming domain adaptation helps as expected
+rather than just being assumed.
+
+All three models show the same pattern across epochs: eval accuracy/F1
+peak around epoch 2 and eval loss keeps climbing through epoch 4 even as
+accuracy holds roughly flat or dips slightly — mild overfitting on a
+training set this size (1877 windows). Worth factoring into any
+hyperparameter tuning (e.g. fewer epochs, or early stopping on eval loss)
+before treating epoch-4 numbers as final.
+
+Full per-epoch metrics and hyperparameters are in
+`results/<model>/results.json`; confusion matrix plots are in
+`results/<model>/confusion_matrix.png`.
 
 ## Next steps
 
-Once results exist for all three models: compare metrics across them,
-write up the comparison, and decide whether any hyperparameter tuning or
-error analysis (e.g. reading through false positives/negatives on
-`eval.csv`) is warranted before finalizing.
+- **Error analysis**: read through false positives/negatives on
+  `eval.csv` (particularly biobert's, as the best-performing model) to
+  see whether mistakes cluster around the three easy-to-mistake-for-a-gap
+  categories the annotation guidelines call out (practical
+  recommendations, bare speculation, "unknown" as a classification
+  label), or elsewhere.
+- **Overfitting**: given the epoch-2 peak noted above, try fewer epochs
+  (e.g. 2-3) or early stopping and see whether eval F1 improves versus the
+  current epoch-4 numbers.
+- **Hyperparameter tuning**: learning rate / batch size sweep for
+  biobert specifically, since it's the strongest candidate to take
+  forward.
+- Write up the 3-model comparison and this analysis for the thesis.
