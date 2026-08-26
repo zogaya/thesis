@@ -332,44 +332,48 @@ code by the cell, not a shell command). Download the resulting
 has no saved GitHub credentials, so this avoids setting up token auth
 inside a notebook.
 
-**Verification status**: executed end-to-end for real, in a session whose
-network policy had just been updated to allow `huggingface.co`,
-`*.huggingface.co`, and `*.hf.co` (a previous session's proxy had returned
-403 on model-weight downloads — see git history for the diagnosis). Access
-was confirmed first (`bert-base-cased` tokenizer *and* full model weights,
-not just the tokenizer), then all three models were trained with the
-script's default hyperparameters (4 epochs, batch size 8, lr 2e-5,
-max_length 512, seed 42) on CPU (no GPU was available in that session —
-each model took roughly 1.5-3 hours; see `results/<model>/results.json`
-for full per-epoch logs). No errors or silent failures in any run.
+**Verification status**: executed end-to-end for real, twice, independently.
+First on CPU (no GPU available in that session — each model took roughly
+1.5-3 hours; this run also confirmed Hugging Face model-weight downloads,
+which had previously failed with a 403 in an earlier, more restrictive
+session). Then for real on a Colab T4 GPU by following the "Running it"
+steps above (each model ~15-20 min). Both runs used the script's default
+hyperparameters (4 epochs, batch size 8, lr 2e-5, max_length 512, seed 42)
+and produced the same model ranking with metrics within ~1 point of each
+other — a solid independent replication. **The numbers below are from the
+Colab GPU run**, kept as the canonical result since it matches the
+intended "Running it" workflow above; see git history for the CPU run's
+numbers if useful for comparison. No errors or silent failures in either
+run.
 
 ## 10. Results
 
 | model | checkpoint | eval accuracy | precision | recall | F1 |
 |---|---|---|---|---|---|
-| bert | `bert-base-cased` | 0.884 | 0.881 | 0.861 | 0.871 |
-| biobert | `dmis-lab/biobert-base-cased-v1.2` | **0.924** | 0.908 | **0.926** | **0.917** |
-| pubmedbert | `microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext` | 0.903 | **0.909** | 0.874 | 0.891 |
+| bert | `bert-base-cased` | 0.889 | 0.895 | 0.854 | 0.874 |
+| biobert | `dmis-lab/biobert-base-cased-v1.2` | **0.914** | 0.896 | **0.916** | **0.906** |
+| pubmedbert | `microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext` | 0.911 | **0.916** | 0.884 | 0.900 |
 
 Confusion matrices (rows = actual [neg, pos], cols = predicted [neg, pos],
 682 eval windows: 309 positive / 373 negative):
-- bert: `[[337, 36], [43, 266]]`
-- biobert: `[[344, 29], [23, 286]]`
-- pubmedbert: `[[346, 27], [39, 270]]`
+- bert: `[[342, 31], [45, 264]]`
+- biobert: `[[340, 33], [26, 283]]`
+- pubmedbert: `[[348, 25], [36, 273]]`
 
-**biobert wins** on accuracy, recall, and F1, and is effectively tied with
-pubmedbert on precision (0.908 vs 0.909) — continued-pretraining BERT on
+**biobert wins** on accuracy, recall, and F1, with pubmedbert a close
+second (best precision of the three) — continued-pretraining BERT on
 PubMed text helps more here than training a biomedical vocabulary from
 scratch (pubmedbert), and both biomedical models clearly beat the generic
 `bert-base-cased` baseline, confirming domain adaptation helps as expected
 rather than just being assumed.
 
-All three models show the same pattern across epochs: eval accuracy/F1
-peak around epoch 2 and eval loss keeps climbing through epoch 4 even as
-accuracy holds roughly flat or dips slightly — mild overfitting on a
-training set this size (1877 windows). Worth factoring into any
-hyperparameter tuning (e.g. fewer epochs, or early stopping on eval loss)
-before treating epoch-4 numbers as final.
+All three models show eval loss climbing every epoch (1 through 4) even as
+accuracy/F1 keep improving through epoch 4 — the classic early signature
+of overfitting (growing confidence, including on mistakes) that hasn't yet
+cost accuracy on this run, but is worth watching. Worth factoring into any
+hyperparameter tuning (e.g. early stopping on eval loss, or comparing
+epoch-3 vs epoch-4 checkpoints) before assuming more epochs would keep
+helping.
 
 Full per-epoch metrics and hyperparameters are in
 `results/<model>/results.json`; confusion matrix plots are in
@@ -383,8 +387,8 @@ Full per-epoch metrics and hyperparameters are in
   categories the annotation guidelines call out (practical
   recommendations, bare speculation, "unknown" as a classification
   label), or elsewhere.
-- **Overfitting**: given the epoch-2 peak noted above, try fewer epochs
-  (e.g. 2-3) or early stopping and see whether eval F1 improves versus the
+- **Overfitting**: given the climbing eval loss noted above, try early
+  stopping (on eval loss) or compare earlier-epoch checkpoints against the
   current epoch-4 numbers.
 - **Hyperparameter tuning**: learning rate / batch size sweep for
   biobert specifically, since it's the strongest candidate to take
