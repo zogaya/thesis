@@ -163,9 +163,17 @@ def main():
     eval_metrics = trainer.evaluate()
 
     predictions = trainer.predict(eval_dataset)
-    preds = np.argmax(predictions.predictions, axis=-1)
+    logits = predictions.predictions
+    preds = np.argmax(logits, axis=-1)
+    probs = np.exp(logits) / np.exp(logits).sum(axis=-1, keepdims=True)
     labels = eval_df["label"].tolist()
     cm = confusion_matrix(labels, preds, labels=[0, 1])
+
+    eval_predictions_df = eval_df.copy()
+    eval_predictions_df["predicted_label"] = preds
+    eval_predictions_df["positive_probability"] = probs[:, 1]
+    eval_predictions_df["correct"] = eval_predictions_df["label"] == eval_predictions_df["predicted_label"]
+    eval_predictions_df.to_csv(os.path.join(outdir, "eval_predictions.csv"), index=False)
 
     results = {
         "model": args.model,
@@ -194,6 +202,7 @@ def main():
 
     print(json.dumps(results["eval_metrics"], indent=2))
     print(f"Wrote {results_path}")
+    print(f"Wrote {os.path.join(outdir, 'eval_predictions.csv')}")
 
     if args.save_model_dir:
         os.makedirs(args.save_model_dir, exist_ok=True)

@@ -317,11 +317,14 @@ python train_model.py --model biobert
 python train_model.py --model pubmedbert
 ```
 Writes `results/<model>/results.json` (hyperparameters, eval metrics,
-confusion matrix, per-epoch training log) and
-`results/<model>/confusion_matrix.png`. Model weights are **not** saved
-by default (pass `--save-model-dir` to save them somewhere outside the
-repo) — a fine-tuned checkpoint is large (100s of MB) and doesn't belong
-in git; only the small metrics/logs do.
+confusion matrix, per-epoch training log), `results/<model>/confusion_matrix.png`,
+and `results/<model>/eval_predictions.csv` (every `eval.csv` row plus the
+model's `predicted_label`, `positive_probability`, and a `correct`
+boolean — filter to `correct == False` for error analysis: false
+positives are `label == 0` there, false negatives are `label == 1`).
+Model weights are **not** saved by default (pass `--save-model-dir` to
+save them somewhere outside the repo) — a fine-tuned checkpoint is large
+(100s of MB) and doesn't belong in git; only the small metrics/logs do.
 
 **Running it**: this needs real GPU-friendly compute, so the intended
 flow is Colab, not local: clone the repo there, `pip install -r
