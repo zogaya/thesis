@@ -53,7 +53,8 @@ annotated with positive and negative knowledge-gap statements.
 
 Findings from a full-file audit (not a sample):
 
-- 421 positive / 442 negative annotations, genuinely balanced.
+- 420 positive / 443 negative annotations, genuinely balanced (one
+  annotation was reclassified after model error analysis — see below).
 - All 863 annotations are exact, unique substring matches inside their
   `source_section` text — 0 mismatches, 0 anchors appearing more than
   once in a section. This is the foundation the whole offset-based
@@ -70,6 +71,31 @@ Findings from a full-file audit (not a sample):
 - Only 1 case of a positive/negative annotation span overlap in the same
   article+section — and it's the deliberate "speculation vs. speculation +
   explicit call for research" example above, not a data error.
+
+**One annotation correction** (found via model error analysis, not the
+initial audit): article `10195938`'s `Discussion`-section positive
+annotation — *"The main limitation of this study is its retrospective
+character... [pure study-limitation description, no forward-looking
+research language anywhere in the span]"* — was flagged because
+`biobert` confidently misclassified it as negative, and reading the
+actual `Annotation Guidelines.html` confirmed this exact phrasing
+(word-for-word) is used there as a **negative** example of a Study
+Limitation statement (no epistemic implication, no unfinished-work
+framing). Reclassified from `positives` to `negatives` with
+`"label": "NEG: Study Limitation"`. A parallel audit of five other
+`positives` containing "limitation" found all five correctly labeled —
+each has genuine forward-looking/goal-oriented language justifying the
+positive label (e.g. `10357150`, which was initially also flagged as
+borderline, matches the guideline's own worked example of a limitation
+statement that *does* qualify as a Goal for Knowledge Gap). A parallel
+audit of the model's false positives (case-report "not yet
+documented/reported" language) found these are correctly labeled too —
+5 of 6 are explicitly tagged `FP` in the source data, meaning the
+annotators deliberately included them as hard negatives to test exactly
+this boundary, not a data error. Net effect: 1 annotation moved out of
+863; dataset regenerated (`data/processed/eval.csv`/`.jsonl` changed,
+`train.csv`/`.jsonl` unchanged since the article falls entirely in the
+eval split), all 15 QA checks in `check_dataset.ipynb` still pass.
 
 ## 3. Sentence segmentation
 
@@ -269,11 +295,13 @@ negative to positive via the positive-wins rule.
 ## 8. Current dataset (seed 42, 80/20 split)
 
 - 100 articles → 80 train / 20 eval.
-- 3381 candidate windows generated → 28 discarded (partial anchor
-  overlap) → 426 promoted to positive (positive-wins) → 794 collapsed as
-  exact-text duplicates → **2559 final windows**.
-- Train: 1877 windows (876 positive / 1001 negative).
-- Eval: 682 windows (309 positive / 373 negative).
+- 3379 candidate windows generated → 26 discarded (partial anchor
+  overlap) → 426 promoted to positive (positive-wins) → 793 collapsed as
+  exact-text duplicates → **2560 final windows**.
+- Train: 1877 windows (876 positive / 1001 negative) — unaffected by the
+  annotation correction in section 2, since that article falls entirely
+  in the eval split.
+- Eval: 683 windows (306 positive / 377 negative).
 - Window length: min 8 words, median 71, p95 119, max 254 — the long tail
   is worth accounting for in max-sequence-length choice once we pick a
   tokenizer/model, since a 254-word biomedical window will run well past
@@ -350,6 +378,14 @@ numbers if useful for comparison. No errors or silent failures in either
 run.
 
 ## 10. Results
+
+**Stale as of the section-2 annotation correction**: the numbers below
+were trained/evaluated against the *previous* `eval.csv` (682 windows,
+before the `10195938` reclassification). `eval.csv` now has 683 windows
+with a slightly different positive/negative split, so these results,
+`results/<model>/results.json`, and `results/<model>/eval_predictions.csv`
+all need one more `train_model.py` run per model to reflect the
+corrected data. Kept here until that re-run happens.
 
 | model | checkpoint | eval accuracy | precision | recall | F1 |
 |---|---|---|---|---|---|
