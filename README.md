@@ -379,32 +379,38 @@ run.
 
 ## 10. Results
 
-**Stale as of the section-2 annotation correction**: the numbers below
-were trained/evaluated against the *previous* `eval.csv` (682 windows,
-before the `10195938` reclassification). `eval.csv` now has 683 windows
-with a slightly different positive/negative split, so these results,
-`results/<model>/results.json`, and `results/<model>/eval_predictions.csv`
-all need one more `train_model.py` run per model to reflect the
-corrected data. Kept here until that re-run happens.
+Trained/evaluated against the corrected `eval.csv` (683 windows, after
+the `10195938` reclassification in section 2). This is the **4th
+independent run** of this comparison (1 CPU + 3 separate Colab GPU
+sessions) — see below for why running it more than once mattered.
 
 | model | checkpoint | eval accuracy | precision | recall | F1 |
 |---|---|---|---|---|---|
-| bert | `bert-base-cased` | 0.889 | 0.895 | 0.854 | 0.874 |
-| biobert | `dmis-lab/biobert-base-cased-v1.2` | **0.914** | 0.896 | **0.916** | **0.906** |
-| pubmedbert | `microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext` | 0.911 | **0.916** | 0.884 | 0.900 |
+| bert | `bert-base-cased` | 0.884 | 0.875 | 0.866 | 0.870 |
+| biobert | `dmis-lab/biobert-base-cased-v1.2` | 0.911 | 0.894 | 0.909 | 0.901 |
+| pubmedbert | `microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext` | **0.920** | **0.928** | 0.889 | **0.908** |
 
 Confusion matrices (rows = actual [neg, pos], cols = predicted [neg, pos],
-682 eval windows: 309 positive / 373 negative):
-- bert: `[[342, 31], [45, 264]]`
-- biobert: `[[340, 33], [26, 283]]`
-- pubmedbert: `[[348, 25], [36, 273]]`
+683 eval windows):
+- bert: `[[339, 38], [41, 265]]`
+- biobert: `[[344, 33], [28, 278]]`
+- pubmedbert: `[[356, 21], [34, 272]]`
 
-**biobert wins** on accuracy, recall, and F1, with pubmedbert a close
-second (best precision of the three) — continued-pretraining BERT on
-PubMed text helps more here than training a biomedical vocabulary from
-scratch (pubmedbert), and both biomedical models clearly beat the generic
-`bert-base-cased` baseline, confirming domain adaptation helps as expected
-rather than just being assumed.
+**The biobert-vs-pubmedbert ranking is not stable — treat it as a tie.**
+Across all 4 independent runs so far (identical code, data, seed —
+different runs/hardware, see the "why results differ run to run" note in
+git history), biobert won 3 and pubmedbert won 1, with the accuracy gap
+between them (0.3-1 points) consistently smaller than the run-to-run
+noise for the *same* model (~1 point between any two runs). That's not
+enough signal to claim one architecture is better than the other for
+this task — reporting "biobert wins" from a single run, as earlier
+versions of this README did, would have been an overclaim. **What is
+stable across all 4 runs**: both biomedical models beat the generic
+`bert-base-cased` baseline by 3-4 accuracy points, every single time —
+that's a real, reproducible effect, unlike the biobert/pubmedbert
+ordering. Domain-adapted pretraining helps; which specific domain-adapted
+checkpoint is "best" isn't resolved by this experiment and would need
+multiple seeds per model (not just one run each) to answer properly.
 
 All three models show eval loss climbing every epoch (1 through 4) even as
 accuracy/F1 keep improving through epoch 4 — the classic early signature
@@ -420,16 +426,23 @@ Full per-epoch metrics and hyperparameters are in
 
 ## Next steps
 
-- **Error analysis**: read through false positives/negatives on
-  `eval.csv` (particularly biobert's, as the best-performing model) to
-  see whether mistakes cluster around the three easy-to-mistake-for-a-gap
-  categories the annotation guidelines call out (practical
-  recommendations, bare speculation, "unknown" as a classification
-  label), or elsewhere.
+- **Error analysis**: started — reading `results/<model>/eval_predictions.csv`
+  (added specifically for this) against `eval.csv` surfaced the section-2
+  annotation correction. Worth continuing: check whether the remaining
+  errors cluster around the three easy-to-mistake-for-a-gap categories
+  the annotation guidelines call out (practical recommendations, bare
+  speculation, "unknown" as a classification label), or elsewhere.
+- **Resolve the biobert-vs-pubmedbert tie**: run each model with 2-3
+  different seeds (not just `--seed 42`) and compare mean ± std, since a
+  single run per model — even 4 of them across different sessions — isn't
+  enough to say which domain-adapted checkpoint is actually better, as
+  section 10 above found out.
 - **Overfitting**: given the climbing eval loss noted above, try early
   stopping (on eval loss) or compare earlier-epoch checkpoints against the
   current epoch-4 numbers.
-- **Hyperparameter tuning**: learning rate / batch size sweep for
-  biobert specifically, since it's the strongest candidate to take
-  forward.
-- Write up the 3-model comparison and this analysis for the thesis.
+- **Hyperparameter tuning**: learning rate / batch size sweep, once the
+  seed question above says which model(s) are worth tuning further.
+- Write up the 3-model comparison and this analysis for the thesis —
+  including the annotation-correction finding and the biobert/pubmedbert
+  tie, both of which are more defensible, interesting results than a
+  single clean "X wins" headline would have been.
